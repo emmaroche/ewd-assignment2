@@ -14,7 +14,6 @@ import SimilarMovie from '../similarMovieList';
 import MovieCast from '../movieCastList';
 import { Grid } from '@mui/material';
 
-
 const styles = {
     chipSet: {
         display: "flex",
@@ -98,7 +97,7 @@ const MovieDetails: React.FC<MovieT> = (props) => {
             <Grid container spacing={2}>
                 {movieCast?.cast?.map((actor: any) => (
                     <Grid item xs={12} sm={6} md={4} lg={3} key={actor.cast_id}>
-                        <MovieCast actor={actor} />
+                        <MovieCast actor={actor}  />
                     </Grid>
                 ))}
             </Grid>

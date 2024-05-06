@@ -1,7 +1,7 @@
 import React from "react";
 import PageTemplate from '../components/templateMovieListPage';
 import { ListedMovie, MovieT } from "../types/interfaces";
-import { useQuery } from "react-query"; 
+import { useQuery } from "react-query";
 import { getNowPlayingMovies } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
@@ -9,7 +9,7 @@ import MovieFilterUI, {
   genreFilter,
 } from "../components/movieFilterUI";
 import Spinner from "../components/spinner";
-import AddToMustWatchIcon from '../components/cardIcons/addToMustWatch'; 
+import AddToMustWatchIcon from '../components/cardIcons/addToMustWatch';
 const titleFiltering = {
   name: "title",
   value: "",
@@ -50,19 +50,19 @@ const NowPlayingMoviePage: React.FC = () => {
 
   return (
     <>
-    <PageTemplate
-      title='Discover Now Playing Movies'
-      movies={displayedMovies}
-      action={(movie: ListedMovie) => (
-        <AddToMustWatchIcon  {...movie} />
-      )}
-    />
-    <MovieFilterUI
-    onFilterValuesChange={changeFilterValues}
-    titleFilter={filterValues[0].value}
-    genreFilter={filterValues[1].value}
-  />
-     </>
+      <PageTemplate
+        title='Discover Now Playing Movies'
+        movies={displayedMovies}
+        action={(movie: ListedMovie) => (
+          <AddToMustWatchIcon  {...movie} />
+        )}
+      />
+      <MovieFilterUI
+        onFilterValuesChange={changeFilterValues}
+        titleFilter={filterValues[0].value}
+        genreFilter={filterValues[1].value}
+      />
+    </>
   );
 };
 

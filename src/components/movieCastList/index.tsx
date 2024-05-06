@@ -1,6 +1,8 @@
 import React from 'react';
-import { Card, CardContent, CardMedia, Typography } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, Box } from '@mui/material';
 import img from '../../images/film-poster-placeholder.png';
+import { Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const styles = {
     card: { maxWidth: 345 },
@@ -22,12 +24,21 @@ const MovieCast: React.FC<any> = ({ actor }) => {
           }
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h4">
-            {actor.name}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {actor.character}
-          </Typography>
+          <Box display="flex" flexDirection="column" justifyContent="flex-start">
+            <Typography gutterBottom variant="h5" component="h4">
+              {actor.name}
+            </Typography>
+            <Typography variant="body2" color="text.secondary" mb={2}>
+              {actor.character}
+            </Typography>
+     
+              <Link to={`/actors/${actor.id}`}>
+                <Button variant="outlined" size="medium" color="primary">
+                  View Bios
+                </Button>
+              </Link>
+   
+          </Box>
         </CardContent>
       </Card>
     );

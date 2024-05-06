@@ -7,7 +7,7 @@ import { getMovie } from '../api/tmdb-api'
 import { useQuery } from "react-query";
 import Spinner from '../components/spinner'
 import { getSimilarMovies } from '../api/tmdb-api';
-import { getMovieActors } from '../api/tmdb-api';
+import { getMovieCast } from '../api/tmdb-api';
 
 const MovieDetailsPage: React.FC = () => {
   const { id } = useParams();
@@ -17,7 +17,7 @@ const MovieDetailsPage: React.FC = () => {
   );
 
   const { data: similarMovies } = useQuery(["similarMovies", id], () => getSimilarMovies(id || ""));
-  const { data: movieCast } = useQuery(["movieCast", id], () => getMovieActors(id || ""));
+  const { data: movieCast } = useQuery(["movieCast", id], () => getMovieCast(id || ""));
 
   if (isLoading) {
     return <Spinner />;

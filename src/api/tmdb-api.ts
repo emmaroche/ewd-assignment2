@@ -11,7 +11,6 @@ export const getMovies = () => {
     });
 };
 
-
 export const getUpcomingMovies = () => {
   return fetch(
     `https://api.themoviedb.org/3/movie/upcoming?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&page=1`
@@ -50,12 +49,26 @@ export const getMovie = (id: string) => {
     });
 };
 
-export const getMovieActors = (id: string) => {
+export const getMovieCast = (id: string) => {
   return fetch(
     `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US`
   ).then((response) => {
     if (!response.ok) {
       throw new Error(`Failed to get movie cast data. Response status: ${response.status}`);
+    }
+    return response.json();
+  })
+    .catch((error) => {
+      throw error
+    });
+};
+
+export const getCastBio = (id: string) => {
+  return fetch(
+    `https://api.themoviedb.org/3/person/${id}?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US`
+  ).then((response) => {
+    if (!response.ok) {
+      throw new Error(`Failed to get actor bio. Response status: ${response.status}`);
     }
     return response.json();
   })
