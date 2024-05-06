@@ -74,6 +74,10 @@ const MovieDetails: React.FC<MovieT> = (props) => {
                 />
                 <Chip label={`Released: ${movie.release_date}`} sx={{ margin: 1 }} />
                 <Chip label={`Production Countries: ${movie.production_countries ? movie.production_countries.map(country => country.name).join(', ') : 'N/A'}`} sx={{ margin: 1 }} />
+                <Chip
+                    label={`Production Companies: ${movie.production_companies ? movie.production_companies.map(company => company.name).join(', ') : 'N/A'}`}
+                    sx={{ margin: 1 }}
+                />
             </Paper>
             <Fab
                 color="secondary"
@@ -101,7 +105,7 @@ const MovieDetails: React.FC<MovieT> = (props) => {
             <Typography variant="h5" component="h3" mt={2} mb={2}>
                 Similar Movies
             </Typography>
-            <Grid container spacing={2}> 
+            <Grid container spacing={2}>
                 {similarMovies?.results?.map((movie: any) => (
                     <Grid item xs={12} sm={6} md={4} lg={3} key={movie.id}>
                         <SimilarMovie movie={movie} />

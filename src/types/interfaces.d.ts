@@ -51,6 +51,9 @@ export interface MovieT extends BaseMovie {
     iso_3166_1: string;
     name: string;
   }[];
+  production_companies: {
+    name: string;
+  }[];
   similarMovies?: SimilarMoviesResult;
   movieCast?: Cast; 
 }
