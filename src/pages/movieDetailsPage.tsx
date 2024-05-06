@@ -6,6 +6,7 @@ import PageTemplate from "../components/templateMoviePage";
 import { getMovie } from '../api/tmdb-api'
 import { useQuery } from "react-query";
 import Spinner from '../components/spinner'
+import { getSimilarMovies } from '../api/tmdb-api';
 
 const MovieDetailsPage: React.FC = () => {
   const { id } = useParams();
@@ -13,6 +14,8 @@ const MovieDetailsPage: React.FC = () => {
     ["movie", id],
     ()=> getMovie(id||"")
   );
+
+  const { data: similarMovies } = useQuery(["similarMovies", id], () => getSimilarMovies(id || ""));
 
   if (isLoading) {
     return <Spinner />;
@@ -26,7 +29,7 @@ const MovieDetailsPage: React.FC = () => {
       {movie ? (
         <>
         <PageTemplate movie={movie as MovieT}> 
-          <MovieDetails {...movie as MovieT} />
+          <MovieDetails {...movie as MovieT} similarMovies={similarMovies}/>
         </PageTemplate>
       </>
     ) : (

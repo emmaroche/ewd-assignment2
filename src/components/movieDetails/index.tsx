@@ -10,6 +10,9 @@ import NavigationIcon from "@mui/icons-material/Navigation";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from '../movieReviews'
+import SimilarMovie from '../similarMovieList';
+import { Grid } from '@mui/material';
+
 
 const styles = {
     chipSet: {
@@ -24,20 +27,21 @@ const styles = {
     chipLabel: {
         margin: 0.5,
     },
-    fab: { 
-      position: "fixed",
-      top: 50,
-      right: 2,
+    fab: {
+        position: "fixed",
+        top: 50,
+        right: 2,
     },
 };
 
 const MovieDetails: React.FC<MovieT> = (props) => {
-  const movie=props;
-  const [drawerOpen, setDrawerOpen] = useState(false); // New
+    const movie = props;
+    const { similarMovies } = props;
+    const [drawerOpen, setDrawerOpen] = useState(false); // New
 
     return (
         <>
-            <Typography variant="h5" component="h3">
+            <Typography variant="h5" component="h3" mt={2} mb={2}>
                 Overview
             </Typography>
 
@@ -47,38 +51,51 @@ const MovieDetails: React.FC<MovieT> = (props) => {
 
             <Paper component="ul" sx={styles.chipSet}>
                 <li>
-                    <Chip label="Genres" sx={styles.chipLabel} color="primary" />
+                    <Chip label="Genres" sx={{ ...styles.chipLabel, margin: 1 }} color="primary" />
                 </li>
                 {movie.genres.map((g) => (
                     <li key={g.name}>
-                        <Chip label={g.name} />
+                        <Chip label={g.name} sx={{ margin: 1 }} />
                     </li>
                 ))}
             </Paper>
             <Paper component="ul" sx={styles.chipSet}>
-                <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
+                <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} sx={{ margin: 1 }} />
                 <Chip
                     icon={<MonetizationIcon />}
                     label={`${movie.revenue.toLocaleString()}`}
+                    sx={{ margin: 1 }}
                 />
                 <Chip
                     icon={<StarRate />}
                     label={`${movie.vote_average} (${movie.vote_count}`}
+                    sx={{ margin: 1 }}
                 />
-                <Chip label={`Released: ${movie.release_date}`} />
+                <Chip label={`Released: ${movie.release_date}`} sx={{ margin: 1 }} />
+                <Chip label={`Production Countries: ${movie.production_countries ? movie.production_countries.map(country => country.name).join(', ') : 'N/A'}`} sx={{ margin: 1 }} />
             </Paper>
-            <Fab    
-        color="secondary"
-        variant="extended"
-        onClick={() =>setDrawerOpen(true)}
-        sx={styles.fab}
-      >
-        <NavigationIcon />
-        Reviews
-      </Fab>
-      <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
-        <MovieReviews {...movie} />
-      </Drawer>
+            <Fab
+                color="secondary"
+                variant="extended"
+                onClick={() => setDrawerOpen(true)}
+                sx={styles.fab}
+            >
+                <NavigationIcon />
+                Reviews
+            </Fab>
+            <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
+                <MovieReviews {...movie} />
+            </Drawer>
+            <Typography variant="h5" component="h3" mt={2} mb={2}>
+                Similar Movies
+            </Typography>
+            <Grid container spacing={2}>
+                {similarMovies?.results?.map((movie: any) => (
+                    <Grid item xs={12} sm={6} md={4} lg={3} key={movie.id}>
+                        <SimilarMovie movie={movie} />
+                    </Grid>
+                ))}
+            </Grid>
         </>
     );
 };

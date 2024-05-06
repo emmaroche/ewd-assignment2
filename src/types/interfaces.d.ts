@@ -30,6 +30,7 @@ export interface MovieT extends BaseMovie {
     iso_3166_1: string;
     name: string;
   }[];
+  similarMovies?: any; 
 }
 
 export interface MovieImage {
