@@ -2,8 +2,7 @@ import React from "react";
 import PageTemplate from '../components/templateMovieListPage';
 import { ListedMovie, MovieT } from "../types/interfaces";
 import { useQuery } from "react-query"; // Import useQuery
-import { getUpcomingMovies } from "../api/tmdb-api";
-import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
+import { getTopRatedMovies } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
   titleFilter,
@@ -22,8 +21,8 @@ const genreFiltering = {
   condition: genreFilter,
 };
 
-const UpcomingPage: React.FC = () => {
-  const { data, error, isLoading, isError } = useQuery<MovieT[], Error>("upcomingMovies", getUpcomingMovies);
+const TopRatedPage: React.FC = () => {
+  const { data, error, isLoading, isError } = useQuery<MovieT[], Error>("topRatedMovies", getTopRatedMovies);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
     [titleFiltering, genreFiltering]
@@ -52,10 +51,10 @@ const UpcomingPage: React.FC = () => {
   return (
     <>
     <PageTemplate
-      title='Discover Upcoming Movies'
+      title='Discover Top Rated Movies'
       movies={displayedMovies}
       action={(movie: ListedMovie) => (
-        <AddToMustWatchIcon  {...movie} /> 
+        <AddToMustWatchIcon  {...movie} />
       )}
     />
     <MovieFilterUI
@@ -67,4 +66,4 @@ const UpcomingPage: React.FC = () => {
   );
 };
 
-export default UpcomingPage;
+export default TopRatedPage;

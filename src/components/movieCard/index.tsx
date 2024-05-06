@@ -81,7 +81,7 @@ const MovieCard: React.FC<MovieListProps> = (props) => {
       {props.action(movie)}
         <Link to={`/movies/${props.movie.id}`}>
           <Button variant="outlined" size="medium" color="primary">
-            More Info ...
+            More Info
           </Button>
         </Link>
       </CardActions>
