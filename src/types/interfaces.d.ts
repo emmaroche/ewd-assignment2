@@ -21,6 +21,27 @@ export interface BaseMovieList {
   movies: BaseMovie[];
 }
 
+interface Actor {
+  cast_id: number;
+  character: string;
+  name: string;
+  profile_path: string;
+}
+
+interface Cast {
+  cast: Actor[];
+}
+
+interface SimilarMovieData {
+  poster_path?: string;
+  title: string;
+  overview: string;
+}
+
+interface SimilarMoviesResult {
+  results: SimilarMovieData[];
+}
+
 export interface MovieT extends BaseMovie {
   genres: {
     id: number;
@@ -30,12 +51,13 @@ export interface MovieT extends BaseMovie {
     iso_3166_1: string;
     name: string;
   }[];
-  similarMovies?: any; 
+  similarMovies?: SimilarMoviesResult;
+  movieCast?: Cast; 
 }
 
 export interface MovieImage {
   file_path: string;
-  aspect_ratio?: number; //some props are optional...
+  aspect_ratio?: number; 
   height?: number;
   iso_639_1?: string;
   vote_average?: number;

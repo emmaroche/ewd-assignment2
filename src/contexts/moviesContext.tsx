@@ -24,9 +24,9 @@ const initialContextState = {
 export const MoviesContext = React.createContext<MovieContextInterface>(initialContextState);
 
 const MoviesContextProvider: React.FC<React.PropsWithChildren> = (props) => {
-    const [myReviews, setMyReviews] = useState<Review[]>( [] )  // NEW
+    const [myReviews, setMyReviews] = useState<Review[]>( [] )  
     const [favourites, setFavourites] = useState<number[]>([]);
-    const [mustWatchList, setMustWatchList] = useState<number[]>([]); // NEW
+    const [mustWatchList, setMustWatchList] = useState<number[]>([]); 
 
     const addToFavourites = (movie: ListedMovie) => {
         let updatedFavourites = [...favourites];
@@ -36,7 +36,6 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = (props) => {
         setFavourites(updatedFavourites);
     };
 
-    // We will use this function in a later section
     const removeFromFavourites = (movie: ListedMovie) => {
         setFavourites(favourites.filter((mId) => mId !== movie.id));
     };

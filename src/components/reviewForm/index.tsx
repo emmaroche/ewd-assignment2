@@ -34,7 +34,7 @@ const ReviewForm: React.FC<MovieT> = (props) => {
     const navigate = useNavigate();
     const context = useContext(MoviesContext);
     const [rating, setRating] = useState(3);
-    const [open, setOpen] = useState(false);  //NEW
+    const [open, setOpen] = useState(false); 
 
     const handleRatingChange = (event: ChangeEvent<HTMLInputElement>) => {
         setRating(Number(event.target.value));
@@ -49,7 +49,7 @@ const ReviewForm: React.FC<MovieT> = (props) => {
         review.movieId = props.id;
         review.rating = rating;
         context.addReview(props, review);
-        setOpen(true); // NEW
+        setOpen(true); 
         // console.log(review);
     };
 

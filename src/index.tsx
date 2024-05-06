@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter, Route, Navigate, Routes, Link } from "react-router-dom";
+import { BrowserRouter, Route, Navigate, Routes } from "react-router-dom";
 import HomePage from "./pages/homePage";
 import MoviePage from "./pages/movieDetailsPage";
 import UpcomingMovie from "./pages/upcomingMoviesPage";
-import FavouriteMoviesPage from "./pages/favoriteMoviesPage"; // NEW
+import FavouriteMoviesPage from "./pages/favoriteMoviesPage";
 import MovieReviewPage from "./pages/movieReviewPage";
 import SiteHeader from './components/siteHeader'
 import { QueryClientProvider, QueryClient } from "react-query";

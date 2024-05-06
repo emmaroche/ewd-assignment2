@@ -1,9 +1,8 @@
 import React from "react";
 import PageTemplate from '../components/templateMovieListPage';
 import { ListedMovie, MovieT } from "../types/interfaces";
-import { useQuery } from "react-query"; // Import useQuery
+import { useQuery } from "react-query"; 
 import { getUpcomingMovies } from "../api/tmdb-api";
-import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
   titleFilter,

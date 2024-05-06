@@ -1,7 +1,7 @@
 import React from "react";
 import PageTemplate from '../components/templateMovieListPage';
 import { ListedMovie, MovieT } from "../types/interfaces";
-import { useQuery } from "react-query"; // Import useQuery
+import { useQuery } from "react-query"; 
 import { getNowPlayingMovies } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {

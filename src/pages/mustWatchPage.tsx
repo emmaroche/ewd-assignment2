@@ -9,7 +9,7 @@ import MovieFilterUI, {
   titleFilter
 } from "../components/movieFilterUI";
 import { MovieT } from "../types/interfaces";
-import RemoveFromMustWatch from "../components/cardIcons/removeFromMustWatch"; // Make sure to create this component
+import RemoveFromMustWatch from "../components/cardIcons/removeFromMustWatch"; 
 import WriteReview from "../components/cardIcons/writeReview";
 
 const titleFiltering = {

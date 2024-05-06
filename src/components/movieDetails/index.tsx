@@ -11,6 +11,7 @@ import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from '../movieReviews'
 import SimilarMovie from '../similarMovieList';
+import MovieCast from '../movieCastList';
 import { Grid } from '@mui/material';
 
 
@@ -36,8 +37,8 @@ const styles = {
 
 const MovieDetails: React.FC<MovieT> = (props) => {
     const movie = props;
-    const { similarMovies } = props;
-    const [drawerOpen, setDrawerOpen] = useState(false); // New
+    const { similarMovies, movieCast } = props;
+    const [drawerOpen, setDrawerOpen] = useState(false);
 
     return (
         <>
@@ -86,10 +87,21 @@ const MovieDetails: React.FC<MovieT> = (props) => {
             <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
                 <MovieReviews {...movie} />
             </Drawer>
+
+            <Typography variant="h5" component="h3" mt={2} mb={2}>
+                Cast
+            </Typography>
+            <Grid container spacing={2}>
+                {movieCast?.cast?.map((actor: any) => (
+                    <Grid item xs={12} sm={6} md={4} lg={3} key={actor.cast_id}>
+                        <MovieCast actor={actor} />
+                    </Grid>
+                ))}
+            </Grid>
             <Typography variant="h5" component="h3" mt={2} mb={2}>
                 Similar Movies
             </Typography>
-            <Grid container spacing={2}>
+            <Grid container spacing={2}> 
                 {similarMovies?.results?.map((movie: any) => (
                     <Grid item xs={12} sm={6} md={4} lg={3} key={movie.id}>
                         <SimilarMovie movie={movie} />
