@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PageTemplate from '../components/templateMovieListPage';
 import { ListedMovie, MovieT } from "../types/interfaces";
 import { useQuery } from "react-query";
@@ -26,6 +26,15 @@ const dateFiltering = {
   value: new Date().toISOString(),
   condition: dateFilter,
 };
+// Sorts by vote count
+function sortMovies(displayedMovies: any[], sortFilter: string) {
+  if (sortFilter === "asc") {
+    displayedMovies.sort((a, b) => (a.vote_average || 0) - (b.vote_average || 0));
+  } else if (sortFilter === "desc") {
+    displayedMovies.sort((a, b) => (b.vote_average || 0) - (a.vote_average || 0));
+  }
+  return displayedMovies;
+}
 
 const UpcomingPage: React.FC = () => {
   const { data, error, isLoading, isError } = useQuery<MovieT[], Error>("upcomingMovies", getUpcomingMovies);
@@ -33,6 +42,7 @@ const UpcomingPage: React.FC = () => {
     [],
     [titleFiltering, genreFiltering, dateFiltering]
   );
+  const [sortFilter, setSortFilter] = useState("");
 
   if (isLoading) {
     return <Spinner />;
@@ -43,6 +53,10 @@ const UpcomingPage: React.FC = () => {
   }
 
   const changeFilterValues = (type: string, value: string) => {
+    if (type === "sort") {
+      setSortFilter(value);
+      return;
+    }
     const changedFilter = { name: type, value: value };
     let updatedFilterSet = [];
 
@@ -61,8 +75,16 @@ const UpcomingPage: React.FC = () => {
     setFilterValues(updatedFilterSet);
   };
 
+  
   const movies = data ? data : [];
-  const displayedMovies = filterFunction(movies);
+  let displayedMovies = filterFunction(movies);
+
+  // Call the sorting function and update displayedMovies
+  displayedMovies = sortMovies(displayedMovies, sortFilter);
+
+  // Redundant, but necessary to avoid app crashing.
+  const favourites = movies.filter(m => m.favourite)
+  localStorage.setItem("favourites", JSON.stringify(favourites));
 
   return (
     <>
@@ -78,6 +100,7 @@ const UpcomingPage: React.FC = () => {
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
         dateFilter={filterValues[2].value}
+        sortFilter={sortFilter}
       />
     </>
   );

@@ -14,6 +14,7 @@ export const genreFilter = function (movie: ListedMovie, value: string) {
   return genreId > 0 ? movie.genre_ids.includes(genreId) : true;
 };
 
+// Reference: https://stackoverflow.com/questions/69265989/format-date-with-date-fns
 export const dateFilter = function (movie: ListedMovie, value: string) {
   const releaseYear = getYear(parseISO(movie.release_date));
   const filterYear = getYear(parseISO(value));
@@ -37,11 +38,13 @@ interface MovieFilterUIProps {
   titleFilter: string;
   genreFilter: string;
   dateFilter: string;
+  sortFilter: string; 
 }
 
 const MovieFilterUI: React.FC<MovieFilterUIProps> = ({ onFilterValuesChange, titleFilter, genreFilter }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [dateFilter, setDateFilter] = useState("");
+  const [sortFilter, setSortFilter] = useState("");
 
   const handleFilterChange = (filterType: string, value: string) => {
     if (filterType === "date") {
@@ -49,7 +52,12 @@ const MovieFilterUI: React.FC<MovieFilterUIProps> = ({ onFilterValuesChange, tit
     }
     onFilterValuesChange(filterType, value);
   };
-  
+
+  const handleSortChange = (value: string) => {
+    setSortFilter(value);
+    onFilterValuesChange("sort", value);
+  };
+
   return (
     <>
       <Fab
@@ -67,9 +75,11 @@ const MovieFilterUI: React.FC<MovieFilterUIProps> = ({ onFilterValuesChange, tit
       >
         <FilterCard
           onUserInput={handleFilterChange}
+          onSortChange={handleSortChange} 
           titleFilter={titleFilter}
           genreFilter={genreFilter}
           dateFilter={dateFilter}
+          sortFilter={sortFilter} 
         />
       </Drawer>
     </>

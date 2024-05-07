@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
 import PageTemplate from "../components/templateMovieListPage";
 import { MoviesContext } from "../contexts/moviesContext";
 import { useQueries } from "react-query";
@@ -35,13 +35,24 @@ export const genreFiltering = {
   },
 };
 
+function sortMovies(displayedMovies: any[], sortFilter: string) {
+  if (sortFilter === "asc") {
+    displayedMovies.sort((a, b) => (a.vote_average || 0) - (b.vote_average || 0));
+  } else if (sortFilter === "desc") {
+    displayedMovies.sort((a, b) => (b.vote_average || 0) - (a.vote_average || 0));
+  }
+  return displayedMovies;
+}
+
+
 const FavouriteMoviesPage: React.FC = () => {
   const { favourites: movieIds } = useContext(MoviesContext);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
     [titleFiltering, genreFiltering, dateFiltering]
   );
-
+  const [sortFilter, setSortFilter] = useState("");
+  
   // Create an array of queries and run them in parallel.
   const favouriteMovieQueries = useQueries(
     movieIds.map((movieId) => {
@@ -59,11 +70,17 @@ const FavouriteMoviesPage: React.FC = () => {
   }
 
   const allFavourites = favouriteMovieQueries.map((q) => q.data);
-  const displayMovies = allFavourites
+  let displayMovies = allFavourites
     ? filterFunction(allFavourites)
     : [];
 
+  displayMovies = sortMovies(displayMovies, sortFilter);
+
   const changeFilterValues = (type: string, value: string) => {
+    if (type === "sort") {
+      setSortFilter(value);
+      return;
+    }
     const changedFilter = { name: type, value: value };
     let updatedFilterSet = [];
 
@@ -101,6 +118,7 @@ const FavouriteMoviesPage: React.FC = () => {
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
         dateFilter={filterValues[2].value}
+        sortFilter={sortFilter} 
       />
     </>
   );

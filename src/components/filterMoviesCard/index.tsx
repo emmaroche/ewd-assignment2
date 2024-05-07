@@ -1,6 +1,6 @@
-import React, { ChangeEvent } from "react";  // useState/useEffect redundant 
-import { FilterOption, GenreData } from "../../types/interfaces"; //include GenreData interface
-import { SelectChangeEvent, colors } from "@mui/material";
+import React, { ChangeEvent } from "react";
+import { FilterOption, GenreData } from "../../types/interfaces";
+import { SelectChangeEvent } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -42,9 +42,11 @@ const styles = {
 
 interface FilterMoviesCardProps {
   onUserInput: (f: FilterOption, s: string) => void;
+  onSortChange: (s: string) => void;
   titleFilter: string;
   genreFilter: string;
   dateFilter: string;
+  sortFilter: string;
 }
 
 const FilterMoviesCard: React.FC<FilterMoviesCardProps> = (props) => {
@@ -76,14 +78,22 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = (props) => {
   };
 
   const handleDateChange = (date: Date | null) => {
-    const dateString = date ? date.toISOString().split('T')[0] : ''; 
+    const dateString = date ? date.toISOString().split('T')[0] : '';
     props.onUserInput("date", dateString);
   }
+
+  const handleSortChange = (e: SelectChangeEvent) => {
+    handleChange(e, "sort", e.target.value);
+  };
 
   const clearFilters = () => {
     props.onUserInput("title", ""); // Clears title filter
     props.onUserInput("genre", "0"); // Clears genre filter
     props.onUserInput("date", ""); // Clears date filter
+  };
+
+  const clearSort = () => {
+    props.onSortChange(""); // Clears sort filter
   };
 
   return (
@@ -93,7 +103,7 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = (props) => {
           <CardContent>
             <Typography variant="h5" component="h1">
               <FilterAltIcon fontSize="large" />
-              Filter the movies.
+              Filter the movies
             </Typography>
             <TextField
               sx={styles.formControl}
@@ -107,7 +117,7 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = (props) => {
             <DatePicker
               sx={styles.formControl}
               label="Release Year"
-              views={['year']} 
+              views={['year']}
               format="yyyy"
               value={dateFilter as any}
               onChange={handleDateChange}
@@ -136,8 +146,21 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = (props) => {
           <CardContent>
             <Typography variant="h5" component="h1">
               <SortIcon fontSize="large" />
-              Sort the movies.
+              Sort the movies
             </Typography>
+            <FormControl sx={styles.formControl}>
+              <InputLabel id="sort-label">Sort by</InputLabel>
+              <Select
+                labelId="sort-label"
+                id="sort-select"
+                value={props.sortFilter}
+                onChange={handleSortChange}
+              >
+                <MenuItem value="asc">Rating (Ascending)</MenuItem>
+                <MenuItem value="desc">Rating (Descending)</MenuItem>
+              </Select>
+            </FormControl>
+            <button onClick={clearSort} style={styles.clearButton}>Clear Sort</button>
           </CardContent>
         </Card>
       </>

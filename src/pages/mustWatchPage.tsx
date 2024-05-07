@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
 import PageTemplate from "../components/templateMovieListPage";
 import { MoviesContext } from "../contexts/moviesContext";
 import { useQueries } from "react-query";
@@ -24,6 +24,16 @@ const dateFiltering = {
   condition: dateFilter,
 };
 
+// Sorts by vote count
+function sortMovies(displayedMovies: any[], sortFilter: string) {
+  if (sortFilter === "asc") {
+    displayedMovies.sort((a, b) => (a.vote_average || 0) - (b.vote_average || 0));
+  } else if (sortFilter === "desc") {
+    displayedMovies.sort((a, b) => (b.vote_average || 0) - (a.vote_average || 0));
+  }
+  return displayedMovies;
+}
+
 export const genreFiltering = {
   name: "genre",
   value: "0",
@@ -40,6 +50,7 @@ const MustWatchMoviesPage: React.FC = () => {
     [],
     [titleFiltering, genreFiltering, dateFiltering]
   );
+  const [sortFilter, setSortFilter] = useState("");
 
   const mustWatchMovieQueries = useQueries(
     movieIds.map((movieId) => {
@@ -57,11 +68,15 @@ const MustWatchMoviesPage: React.FC = () => {
   }
 
   const allMustWatch = mustWatchMovieQueries.map((q) => q.data);
-  const displayMovies = allMustWatch
+  let displayMovies = allMustWatch
     ? filterFunction(allMustWatch)
     : [];
 
   const changeFilterValues = (type: string, value: string) => {
+    if (type === "sort") {
+      setSortFilter(value);
+      return;
+    }
     const changedFilter = { name: type, value: value };
     let updatedFilterSet = [];
 
@@ -79,6 +94,8 @@ const MustWatchMoviesPage: React.FC = () => {
 
     setFilterValues(updatedFilterSet);
   };
+
+  displayMovies = sortMovies(displayMovies, sortFilter);
 
   return (
     <>
@@ -99,6 +116,7 @@ const MustWatchMoviesPage: React.FC = () => {
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
         dateFilter={filterValues[2].value}
+        sortFilter={sortFilter}
       />
     </>
   );
