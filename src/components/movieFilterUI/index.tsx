@@ -20,8 +20,8 @@ const styles = {
   fab: {
     marginTop: 8,
     position: "fixed",
-    top: 20,
-    right: 2,
+    top: 5,
+    right: 20,
   },
 };
 

@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import { MoviesContext } from "../../contexts/moviesContext";
 import { ListedMovie } from "../../types/interfaces";
+import { Box } from '@mui/material';
 
 const styles = {
   card: { maxWidth: 345 },
@@ -37,6 +38,7 @@ const MovieCard: React.FC<MovieListProps> = (props) => {
     movie.favourite = true;
 
   return (
+<Box component={Link} to={`/movies/${props.movie.id}`} sx={{ textDecoration: 'none' }}>
     <Card sx={styles.card}>
       <CardHeader
         avatar={
@@ -77,14 +79,16 @@ const MovieCard: React.FC<MovieListProps> = (props) => {
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
+     
       {props.action(movie)}
-        <Link to={`/movies/${props.movie.id}`}>
+
           <Button variant="outlined" size="medium" color="primary">
             More Info
           </Button>
-        </Link>
+    
       </CardActions>
     </Card>
+    </Box>
   );
 }
 

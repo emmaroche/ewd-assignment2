@@ -15,6 +15,10 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 const styles = {
   title: {
     flexGrow: 1,
+    cursor: 'pointer'
+  },
+  title2: {
+    flexGrow: 1,
   },
   appbar: {
     // background: 'none',
@@ -30,6 +34,9 @@ const SiteHeader: React.FC = () => {
   const open = Boolean(anchorEl);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
+  const handleClickHome = () => {
+    navigate("/home");
+  }
 
   const menuOptions = [
     { label: "Home", path: "/" },
@@ -52,10 +59,10 @@ const SiteHeader: React.FC = () => {
     <>
       <AppBar sx={styles.appbar} position="fixed" elevation={0} color="primary">
         <Toolbar>
-          <Typography variant="h4" sx={styles.title}>
+          <Typography variant="h4" sx={styles.title} onClick={handleClickHome}>
             TMDB Client
           </Typography>
-          <Typography variant="h6" sx={styles.title}>
+          <Typography variant="h6" sx={styles.title2}>
             All you ever wanted to know about Movies!
           </Typography>
           {isMobile ? (

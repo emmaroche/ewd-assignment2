@@ -29,8 +29,9 @@ const styles = {
     },
     fab: {
         position: "fixed",
-        top: 50,
-        right: 2,
+        top: 70,
+        right: 20,
+        zIndex: 10000,
     },
 };
 

@@ -24,6 +24,7 @@ export interface BaseMovieList {
 interface Actor {
   cast_id: number;
   character: string;
+  homepage: string;
   name: string;
   profile_path: string;
   biography?: string;
