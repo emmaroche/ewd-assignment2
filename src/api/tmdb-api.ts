@@ -1,41 +1,51 @@
-export const getMovies = () => {
+export const getMovies = (page: number) => {
   return fetch(
-    `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
+    `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=${page}`
   ).then((response) => {
     if (!response.ok)
       throw new Error(`Unable to fetch movies. Response status: ${response.status}`);
-    return response.json();
+    return response.json().then(data => ({
+      ...data,
+      hasMore: data.page < data.total_pages,
+    }));
   })
     .catch((error) => {
       throw error
     });
 };
 
-export const getUpcomingMovies = () => {
+export const getUpcomingMovies = (page: number) => {
   return fetch(
-    `https://api.themoviedb.org/3/movie/upcoming?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&page=1`
+    `https://api.themoviedb.org/3/movie/upcoming?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&page=${page}`
   )
     .then(res => res.json())
-    .then(json => json.results);
+    .then(json => ({
+      results: json.results,
+      hasMore: json.page < json.total_pages,
+    }));
 };
 
-export const getPopularMovies = () => {
+export const getPopularMovies = (page: number) => {
   return fetch(
-    `https://api.themoviedb.org/3/movie/popular?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&page=1`
-  )
-    .then(res => {
-      console.log(res);
-      return res.json();
-    })
-    .then(json => json.results);
-};
-
-export const getNowPlayingMovies = () => {
-  return fetch(
-    `https://api.themoviedb.org/3/movie/now_playing?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&page=1`
+    `https://api.themoviedb.org/3/movie/popular?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&page=${page}`
   )
     .then(res => res.json())
-    .then(json => json.results);
+    .then(json => ({
+      results: json.results,
+      hasMore: json.page < json.total_pages,
+    }));
+};
+
+
+export const getNowPlayingMovies = (page: number) => {
+  return fetch(
+    `https://api.themoviedb.org/3/movie/now_playing?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&page=${page}`
+  )
+    .then(res => res.json())
+    .then(json => ({
+      results: json.results,
+      hasMore: json.page < json.total_pages,
+    }));
 };
 
 export const getMovie = (id: string) => {

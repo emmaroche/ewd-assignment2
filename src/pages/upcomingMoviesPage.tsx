@@ -11,6 +11,17 @@ import MovieFilterUI, {
 } from "../components/movieFilterUI";
 import Spinner from "../components/spinner";
 import AddToMustWatchIcon from '../components/cardIcons/addToMustWatch';
+const buttonStyle = {
+  backgroundColor: 'rgba(25,118,210,255)',
+  color: 'white',
+  padding: '10px 20px',
+  border: 'none',
+  borderRadius: '5px',
+  cursor: 'pointer',
+  fontSize: '1em',
+  marginBottom: '30px',
+  marginTop: '30px',
+};
 const titleFiltering = {
   name: "title",
   value: "",
@@ -37,7 +48,8 @@ function sortMovies(displayedMovies: any[], sortFilter: string) {
 }
 
 const UpcomingPage: React.FC = () => {
-  const { data, error, isLoading, isError } = useQuery<MovieT[], Error>("upcomingMovies", getUpcomingMovies);
+  const [page, setPage] = useState(1);
+  const { data, error, isLoading, isError } = useQuery<{ results: MovieT[], hasMore: boolean }, Error>(["upcomingMovies", page], () => getUpcomingMovies(page), { keepPreviousData: true });
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
     [titleFiltering, genreFiltering, dateFiltering]
@@ -75,8 +87,8 @@ const UpcomingPage: React.FC = () => {
     setFilterValues(updatedFilterSet);
   };
 
-  
-  const movies = data ? data : [];
+
+  const movies = data ? data.results : [];
   let displayedMovies = filterFunction(movies);
 
   // Call the sorting function and update displayedMovies
@@ -102,6 +114,32 @@ const UpcomingPage: React.FC = () => {
         dateFilter={filterValues[2].value}
         sortFilter={sortFilter}
       />
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: '10px',
+      }}>
+        <button
+          style={buttonStyle}
+          onClick={() => setPage((old) => Math.max(old - 1, 0))}
+          disabled={page === 1}
+        >
+          Previous Page
+        </button>
+        <button
+          style={buttonStyle}
+          onClick={() => {
+            if (!isLoading && data?.hasMore) {
+              setPage((old) => old + 1)
+            }
+          }}
+          disabled={isLoading || !data?.hasMore}
+        >
+          Next Page
+        </button>
+      </div>
+      {isLoading ? <span> Loading...</span> : null}{' '}
     </>
   );
 };

@@ -58,6 +58,7 @@ export interface MovieT extends BaseMovie {
   }[];
   similarMovies?: SimilarMoviesResult;
   movieCast?: Cast; 
+  hasMore: boolean; 
 }
 
 export interface MovieImage {
@@ -117,4 +118,5 @@ interface DiscoverMovies {
   total_pages: number;
   total_results: number;
   results: BaseMovie[];
+  hasMore: boolean; 
 }

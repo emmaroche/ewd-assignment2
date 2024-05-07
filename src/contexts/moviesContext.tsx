@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ListedMovie, MovieT,  Review } from "../types/interfaces"; //Add Review interface
+import { ListedMovie, MovieT,  Review } from "../types/interfaces";
 
 interface MovieContextInterface {
     addReview(props: MovieT, review: Review): unknown;
