@@ -1,17 +1,16 @@
 import React from "react";
-import PageTemplate from "../components/templateMovieListPage";
-import { getMovies } from "../api/tmdb-api";
+import PageTemplate from '../components/templateMovieListPage';
+import { ListedMovie, MovieT } from "../types/interfaces";
+import { useQuery } from "react-query";
+import { getPopularMovies } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
   titleFilter,
   genreFilter,
   dateFilter
 } from "../components/movieFilterUI";
-import { DiscoverMovies, ListedMovie } from "../types/interfaces";
-import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
-import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
-
+import AddToMustWatchIcon from '../components/cardIcons/addToMustWatch';
 const titleFiltering = {
   name: "title",
   value: "",
@@ -28,11 +27,11 @@ const dateFiltering = {
   condition: dateFilter,
 };
 
-const HomePage: React.FC = () => {
-  const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>("discover", getMovies);
+const PopularPage: React.FC = () => {
+  const { data, error, isLoading, isError } = useQuery<MovieT[], Error>("popularMovies", getPopularMovies);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
-    [titleFiltering, genreFiltering, dateFiltering] 
+    [titleFiltering, genreFiltering, dateFiltering]
   );
 
   if (isLoading) {
@@ -46,7 +45,7 @@ const HomePage: React.FC = () => {
   const changeFilterValues = (type: string, value: string) => {
     const changedFilter = { name: type, value: value };
     let updatedFilterSet = [];
-  
+
     if (value === "") {
       // If the value is cleared, reset all filters
       updatedFilterSet = [{ name: "title", value: "" }, { name: "genre", value: "0" }, { name: "release_date", value: new Date().toISOString() }];
@@ -55,29 +54,24 @@ const HomePage: React.FC = () => {
         type === "title"
           ? [changedFilter, filterValues[1], filterValues[2]]
           : type === "genre"
-          ? [filterValues[0], changedFilter, filterValues[2]]
-          : [filterValues[0], filterValues[1], changedFilter];
+            ? [filterValues[0], changedFilter, filterValues[2]]
+            : [filterValues[0], filterValues[1], changedFilter];
     }
-  
+
     setFilterValues(updatedFilterSet);
   };
-  
-  
-  const movies = data ? data.results : [];
-  const displayedMovies = filterFunction(movies);
 
-  // Redundant, but necessary to avoid app crashing.
-  const favourites = movies.filter(m => m.favourite)
-  localStorage.setItem("favourites", JSON.stringify(favourites));
+  const movies = data ? data : [];
+  const displayedMovies = filterFunction(movies);
 
   return (
     <>
       <PageTemplate
-        title="Discover Movies"
+        title='Discover Popular Movies'
         movies={displayedMovies}
-        action={(movie: ListedMovie) => {
-          return <AddToFavouritesIcon {...movie} />
-        }}
+        action={(movie: ListedMovie) => (
+          <AddToMustWatchIcon  {...movie} />
+        )}
       />
       <MovieFilterUI
         onFilterValuesChange={changeFilterValues}
@@ -88,4 +82,5 @@ const HomePage: React.FC = () => {
     </>
   );
 };
-export default HomePage;
+
+export default PopularPage;

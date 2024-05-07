@@ -7,6 +7,7 @@ import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
   titleFilter,
   genreFilter,
+  dateFilter
 } from "../components/movieFilterUI";
 import Spinner from "../components/spinner";
 import AddToMustWatchIcon from '../components/cardIcons/addToMustWatch';
@@ -21,11 +22,17 @@ const genreFiltering = {
   condition: genreFilter,
 };
 
+const dateFiltering = {
+  name: "release_date",
+  value: new Date().toISOString(),
+  condition: dateFilter,
+};
+
 const NowPlayingMoviePage: React.FC = () => {
   const { data, error, isLoading, isError } = useQuery<MovieT[], Error>("nowPlayingMovies", getNowPlayingMovies);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
-    [titleFiltering, genreFiltering]
+    [titleFiltering, genreFiltering, dateFiltering]
   );
 
   if (isLoading) {
@@ -38,10 +45,20 @@ const NowPlayingMoviePage: React.FC = () => {
 
   const changeFilterValues = (type: string, value: string) => {
     const changedFilter = { name: type, value: value };
-    const updatedFilterSet =
-      type === "title"
-        ? [changedFilter, filterValues[1]]
-        : [filterValues[0], changedFilter];
+    let updatedFilterSet = [];
+
+    if (value === "") {
+      // If the value is cleared, reset all filters
+      updatedFilterSet = [{ name: "title", value: "" }, { name: "genre", value: "0" }, { name: "release_date", value: new Date().toISOString() }];
+    } else {
+      updatedFilterSet =
+        type === "title"
+          ? [changedFilter, filterValues[1], filterValues[2]]
+          : type === "genre"
+            ? [filterValues[0], changedFilter, filterValues[2]]
+            : [filterValues[0], filterValues[1], changedFilter];
+    }
+
     setFilterValues(updatedFilterSet);
   };
 
@@ -61,6 +78,7 @@ const NowPlayingMoviePage: React.FC = () => {
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
+        dateFilter={filterValues[2].value}
       />
     </>
   );

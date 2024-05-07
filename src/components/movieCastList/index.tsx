@@ -12,29 +12,29 @@ const styles = {
     },
 };
 
-const MovieCast: React.FC<any> = ({ actor }) => {
+const MovieCast: React.FC<any> = ({ cast }) => {
     return (
       <Card sx={{ maxWidth: 345 }}>
         <CardMedia
           sx={styles.media}
           image={
-            actor.profile_path
-              ? `https://image.tmdb.org/t/p/w500/${actor.profile_path}`
+            cast.profile_path
+              ? `https://image.tmdb.org/t/p/w500/${cast.profile_path}`
               : img
           }
         />
         <CardContent>
           <Box display="flex" flexDirection="column" justifyContent="flex-start">
             <Typography gutterBottom variant="h5" component="h4">
-              {actor.name}
+              {cast.name}
             </Typography>
             <Typography variant="body2" color="text.secondary" mb={2}>
-              {actor.character}
+              {cast.character}
             </Typography>
      
-              <Link to={`/actors/${actor.id}`}>
+              <Link to={`/cast/${cast.id}`}>
                 <Button variant="outlined" size="medium" color="primary">
-                  View Bios
+                  View Bio
                 </Button>
               </Link>
    

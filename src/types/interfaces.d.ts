@@ -21,7 +21,7 @@ export interface BaseMovieList {
   movies: BaseMovie[];
 }
 
-interface Actor {
+interface CastInfo {
   cast_id: number;
   character: string;
   homepage: string;
@@ -31,7 +31,7 @@ interface Actor {
 }
 
 interface Cast {
-  cast: Actor[];
+  cast: CastInfo[];
 }
 
 interface SimilarMovieData {
@@ -74,7 +74,7 @@ export interface ListedMovie extends BaseMovie {
   genre_ids: number[];
 }
 
-export type FilterOption = "title" | "genre";
+export type FilterOption = "title" | "genre" | "date";
 
 export interface MovieListPageTemplateProps {
   movies: ListedMovie[];
@@ -93,6 +93,15 @@ export interface GenreData {
     id: string;
     name: string
   }[];
+}
+
+interface Country {
+  id: string;
+  name: string;
+}
+
+interface CountryData {
+  countries: Country[];
 }
 
 export interface Review {

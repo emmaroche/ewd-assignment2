@@ -6,7 +6,7 @@ import { getMovie } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
-  titleFilter
+  titleFilter, dateFilter
 } from "../components/movieFilterUI";
 import { MovieT } from "../types/interfaces";
 import RemoveFromFavourites from "../components/cardIcons/removeFromFavourites";
@@ -16,6 +16,11 @@ const titleFiltering = {
   name: "title",
   value: "",
   condition: titleFilter,
+};
+const dateFiltering = {
+  name: "release_date",
+  value: new Date().toISOString(),
+  condition: dateFilter,
 };
 
 export const genreFiltering = {
@@ -34,34 +39,46 @@ const FavouriteMoviesPage: React.FC = () => {
   const { favourites: movieIds } = useContext(MoviesContext);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
-    [titleFiltering, genreFiltering]
+    [titleFiltering, genreFiltering, dateFiltering]
   );
 
   // Create an array of queries and run them in parallel.
   const favouriteMovieQueries = useQueries(
     movieIds.map((movieId) => {
       return {
-        queryKey: ["movie", movieId ],
+        queryKey: ["movie", movieId],
         queryFn: () => getMovie(movieId.toString()),
       };
     })
   );
-   // Check if any of the parallel queries is still loading.
-   const isLoading = favouriteMovieQueries.find((m) => m.isLoading === true);
+  // Check if any of the parallel queries is still loading.
+  const isLoading = favouriteMovieQueries.find((m) => m.isLoading === true);
 
-   if (isLoading) {
+  if (isLoading) {
     return <Spinner />;
   }
 
   const allFavourites = favouriteMovieQueries.map((q) => q.data);
   const displayMovies = allFavourites
-  ? filterFunction(allFavourites)
-  : [];
+    ? filterFunction(allFavourites)
+    : [];
 
   const changeFilterValues = (type: string, value: string) => {
     const changedFilter = { name: type, value: value };
-    const updatedFilterSet =
-      type === "title" ? [changedFilter, filterValues[1]] : [filterValues[0], changedFilter];
+    let updatedFilterSet = [];
+
+    if (value === "") {
+      // If the value is cleared, reset all filters
+      updatedFilterSet = [{ name: "title", value: "" }, { name: "genre", value: "0" }, { name: "release_date", value: new Date().toISOString() }];
+    } else {
+      updatedFilterSet =
+        type === "title"
+          ? [changedFilter, filterValues[1], filterValues[2]]
+          : type === "genre"
+            ? [filterValues[0], changedFilter, filterValues[2]]
+            : [filterValues[0], filterValues[1], changedFilter];
+    }
+
     setFilterValues(updatedFilterSet);
   };
 
@@ -83,6 +100,7 @@ const FavouriteMoviesPage: React.FC = () => {
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
+        dateFilter={filterValues[2].value}
       />
     </>
   );

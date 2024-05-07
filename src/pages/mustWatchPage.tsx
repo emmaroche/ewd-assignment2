@@ -6,16 +6,22 @@ import { getMovie } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
-  titleFilter
+  titleFilter, dateFilter
 } from "../components/movieFilterUI";
 import { MovieT } from "../types/interfaces";
-import RemoveFromMustWatch from "../components/cardIcons/removeFromMustWatch"; 
+import RemoveFromMustWatch from "../components/cardIcons/removeFromMustWatch";
 import WriteReview from "../components/cardIcons/writeReview";
 
 const titleFiltering = {
   name: "title",
   value: "",
   condition: titleFilter,
+};
+
+const dateFiltering = {
+  name: "release_date",
+  value: new Date().toISOString(),
+  condition: dateFilter,
 };
 
 export const genreFiltering = {
@@ -32,13 +38,13 @@ const MustWatchMoviesPage: React.FC = () => {
   const { mustWatchList: movieIds } = useContext(MoviesContext);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
-    [titleFiltering, genreFiltering]
+    [titleFiltering, genreFiltering, dateFiltering]
   );
 
   const mustWatchMovieQueries = useQueries(
     movieIds.map((movieId) => {
       return {
-        queryKey: ["movie", movieId ],
+        queryKey: ["movie", movieId],
         queryFn: () => getMovie(movieId.toString()),
       };
     })
@@ -50,15 +56,27 @@ const MustWatchMoviesPage: React.FC = () => {
     return <Spinner />;
   }
 
-  const allMustWatch = mustWatchMovieQueries.map((q) => q.data); 
+  const allMustWatch = mustWatchMovieQueries.map((q) => q.data);
   const displayMovies = allMustWatch
-  ? filterFunction(allMustWatch)
-  : [];
+    ? filterFunction(allMustWatch)
+    : [];
 
   const changeFilterValues = (type: string, value: string) => {
     const changedFilter = { name: type, value: value };
-    const updatedFilterSet =
-      type === "title" ? [changedFilter, filterValues[1]] : [filterValues[0], changedFilter];
+    let updatedFilterSet = [];
+
+    if (value === "") {
+      // If the value is cleared, reset all filters
+      updatedFilterSet = [{ name: "title", value: "" }, { name: "genre", value: "0" }, { name: "release_date", value: new Date().toISOString() }];
+    } else {
+      updatedFilterSet =
+        type === "title"
+          ? [changedFilter, filterValues[1], filterValues[2]]
+          : type === "genre"
+            ? [filterValues[0], changedFilter, filterValues[2]]
+            : [filterValues[0], filterValues[1], changedFilter];
+    }
+
     setFilterValues(updatedFilterSet);
   };
 
@@ -70,7 +88,7 @@ const MustWatchMoviesPage: React.FC = () => {
         action={(movie) => {
           return (
             <>
-              <RemoveFromMustWatch {...movie} /> 
+              <RemoveFromMustWatch {...movie} />
               <WriteReview {...movie} />
             </>
           );
@@ -80,6 +98,7 @@ const MustWatchMoviesPage: React.FC = () => {
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
+        dateFilter={filterValues[2].value}
       />
     </>
   );

@@ -19,11 +19,14 @@ export const getUpcomingMovies = () => {
     .then(json => json.results);
 };
 
-export const getTopRatedMovies = () => {
+export const getPopularMovies = () => {
   return fetch(
-    `https://api.themoviedb.org/3/movie/top_rated?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&page=1`
+    `https://api.themoviedb.org/3/movie/popular?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&page=1`
   )
-    .then(res => res.json())
+    .then(res => {
+      console.log(res);
+      return res.json();
+    })
     .then(json => json.results);
 };
 
@@ -68,7 +71,7 @@ export const getCastBio = (id: string) => {
     `https://api.themoviedb.org/3/person/${id}?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US`
   ).then((response) => {
     if (!response.ok) {
-      throw new Error(`Failed to get actor bio. Response status: ${response.status}`);
+      throw new Error(`Failed to get cast bio. Response status: ${response.status}`);
     }
     return response.json();
   })
@@ -83,6 +86,19 @@ export const getSimilarMovies = (id: string) => {
   ).then((response) => {
     if (!response.ok)
       throw new Error(`Unable to fetch genres. Response status: ${response.status}`);
+    return response.json();
+  })
+    .catch((error) => {
+      throw error
+    });
+};
+
+export const getCountries = () => {
+  return fetch(
+    "https://api.themoviedb.org/3/configuration/countries?api_key=" + import.meta.env.VITE_TMDB_KEY + "&language=en-US"
+  ).then((response) => {
+    if (!response.ok)
+      throw new Error(`Unable to fetch countries. Response status: ${response.status}`);
     return response.json();
   })
     .catch((error) => {

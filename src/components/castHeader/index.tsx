@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Paper from "@mui/material/Paper";
@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import HomeIcon from "@mui/icons-material/Home";
-import { Actor } from "../../types/interfaces";
+import { CastInfo } from "../../types/interfaces";
 import { useNavigate } from "react-router-dom";
 
 const styles = {
@@ -19,7 +19,7 @@ const styles = {
   },
 };
 
-const ActorHeader: React.FC<Actor> = (props) => {
+const CastHeader: React.FC<CastInfo> = (props) => {
   const navigate = useNavigate();
   const handleClickBack = () => {
     navigate(-1);
@@ -50,4 +50,4 @@ const ActorHeader: React.FC<Actor> = (props) => {
   );
 };
 
-export default ActorHeader;
+export default CastHeader;

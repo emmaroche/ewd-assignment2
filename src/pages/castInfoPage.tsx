@@ -3,15 +3,15 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { getCastBio } from '../api/tmdb-api';
 import { Grid, Typography, Paper, Box } from '@mui/material';
-import ActorHeader from '../components/actorHeader'; 
-import { Actor } from "../types/interfaces"; 
+import CastHeader from '../components/castHeader'; 
+import { CastInfo } from "../types/interfaces"; 
 
-const ActorBioPage: React.FC = ()  => {
+const CastBioPage: React.FC = ()  => {
   const { id } = useParams<{ id: string }>();
 
-  const { data: actorBio, isLoading, isError, error } = useQuery<Actor, Error>(['actorBio', id], () => {
+  const { data: castBio, isLoading, isError, error } = useQuery<CastInfo, Error>(['castBio', id], () => {
     if (id === undefined) {
-      throw new Error('Actor ID is undefined');
+      throw new Error('Cast ID is undefined');
     }
     return getCastBio(id);
   });
@@ -20,20 +20,20 @@ const ActorBioPage: React.FC = ()  => {
     return <div>Loading...</div>;
   }
 
-  if (isError || !actorBio) {
+  if (isError || !castBio) {
     return <div>Error: {(error as Error).message}</div>;
   }
 
   return (
     <>
       <Box mb={2}>
-        <ActorHeader {...actorBio} />
+        <CastHeader {...castBio} />
       </Box>
       <Grid container spacing={2}>
         <Grid item xs={12} md={4}>
           <img
-            src={`https://image.tmdb.org/t/p/w500/${actorBio.profile_path}`}
-            alt={actorBio.name}
+            src={`https://image.tmdb.org/t/p/w500/${castBio.profile_path}`}
+            alt={castBio.name}
             style={{ width: '100%', height: 'auto' }}
           />
         </Grid>
@@ -43,7 +43,7 @@ const ActorBioPage: React.FC = ()  => {
               Biography
             </Typography>
             <Typography variant="body1">
-              {actorBio.biography}
+              {castBio.biography}
             </Typography>
           </Paper>
         </Grid>
@@ -52,4 +52,4 @@ const ActorBioPage: React.FC = ()  => {
   );
 };
 
-export default ActorBioPage;
+export default CastBioPage;
