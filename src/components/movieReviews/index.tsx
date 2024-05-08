@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import { getMovieReviews } from "../../api/tmdb-api";
 import { excerpt } from "../../util";
 
-import { MovieT, Review } from "../../types/interfaces"; // Import the MovieT type from the appropriate location
+import { MovieT, Review } from "../../types/interfaces";
 
 const styles = {
     table: {
@@ -18,7 +18,7 @@ const styles = {
     },
 };
 
-const MovieReviews: React.FC<MovieT> = (props) => { // Use the MovieT type in the function signature
+const MovieReviews: React.FC<MovieT> = (props) => { 
     const [reviews, setReviews] = useState([]);
 
     const movie = props;

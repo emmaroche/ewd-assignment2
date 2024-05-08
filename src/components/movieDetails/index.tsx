@@ -35,7 +35,12 @@ const styles = {
     },
 };
 
-const MovieDetails: React.FC<MovieT> = (props) => {
+interface MovieDetailsProps extends MovieT {
+    castChildren?: React.ReactNode;
+    similarMoviesChildren?: React.ReactNode;
+}
+
+const MovieDetails: React.FC<MovieDetailsProps> = (props) => {
     const movie = props;
     const { similarMovies, movieCast } = props;
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -102,6 +107,7 @@ const MovieDetails: React.FC<MovieT> = (props) => {
                     </Grid>
                 ))}
             </Grid>
+            {props.castChildren}
             <Typography variant="h5" component="h3" mt={2} mb={2}>
                 Similar Movies
             </Typography>
@@ -112,6 +118,7 @@ const MovieDetails: React.FC<MovieT> = (props) => {
                     </Grid>
                 ))}
             </Grid>
+            {props.similarMoviesChildren}
         </>
     );
 };
