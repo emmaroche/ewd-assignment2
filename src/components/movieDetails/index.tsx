@@ -9,10 +9,10 @@ import { MovieT } from "../../types/interfaces";
 import NavigationIcon from "@mui/icons-material/Navigation";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
-import MovieReviews from '../movieReviews'
-import SimilarMovie from '../similarMovieList';
-import MovieCast from '../movieCastList';
-import { Grid } from '@mui/material';
+import MovieReviews from "../movieReviews"
+import SimilarMovie from "../similarMovieList";
+import MovieCast from "../movieCastList";
+import { Grid } from "@mui/material";
 
 const styles = {
     chipSet: {
@@ -78,9 +78,9 @@ const MovieDetails: React.FC<MovieDetailsProps> = (props) => {
                     sx={{ margin: 1 }}
                 />
                 <Chip label={`Released: ${movie.release_date}`} sx={{ margin: 1 }} />
-                <Chip label={`Production Countries: ${movie.production_countries ? movie.production_countries.map(country => country.name).join(', ') : 'N/A'}`} sx={{ margin: 1 }} />
+                <Chip label={`Production Countries: ${movie.production_countries ? movie.production_countries.map(country => country.name).join(", ") : "N/A"}`} sx={{ margin: 1 }} />
                 <Chip
-                    label={`Production Companies: ${movie.production_companies ? movie.production_companies.map(company => company.name).join(', ') : 'N/A'}`}
+                    label={`Production Companies: ${movie.production_companies ? movie.production_companies.map(company => company.name).join(", ") : "N/A"}`}
                     sx={{ margin: 1 }}
                 />
             </Paper>

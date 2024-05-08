@@ -1,7 +1,7 @@
 import React from "react";
 import SiteHeader from "../components/siteHeader";
 import { MemoryRouter } from "react-router";
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {
   title: "App Header",

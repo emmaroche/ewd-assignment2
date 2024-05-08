@@ -120,3 +120,14 @@ interface DiscoverMovies {
   results: BaseMovie[];
   hasMore: boolean; 
 }
+
+interface MovieRecord {
+  title: string;
+  overview: string;
+  genres: string;
+  releaseDate: string;
+  runtime: string;
+  productionCompanies: string;
+  cast: { name: string; role: string; description: string }[];
+  poster: string;
+};

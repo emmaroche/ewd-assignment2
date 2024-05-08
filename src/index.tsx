@@ -1,20 +1,21 @@
 import React from "react";
-import ReactDOM from 'react-dom/client'
+import ReactDOM from "react-dom/client"
 import { BrowserRouter, Route, Navigate, Routes } from "react-router-dom";
 import HomePage from "./pages/homePage";
 import MoviePage from "./pages/movieDetailsPage";
 import UpcomingMovie from "./pages/upcomingMoviesPage";
 import FavouriteMoviesPage from "./pages/favoriteMoviesPage";
 import MovieReviewPage from "./pages/movieReviewPage";
-import SiteHeader from './components/siteHeader'
+import SiteHeader from "./components/siteHeader"
 import { QueryClientProvider, QueryClient } from "react-query";
-import { ReactQueryDevtools } from 'react-query/devtools';
+import { ReactQueryDevtools } from "react-query/devtools";
 import MoviesContextProvider from "./contexts/moviesContext";
-import AddMovieReviewPage from './pages/addMovieReviewPage'
+import AddMovieReviewPage from "./pages/addMovieReviewPage"
 import MustWatchMoviesPage from "./pages/mustWatchPage";
 import NowPlayingMoviePage from "./pages/nowPlayingMoviesPage";
 import PopularPage from "./pages/popularMoviesPage";
-import CastBioPage from './pages/castInfoPage';
+import CastBioPage from "./pages/castInfoPage";
+import FantasyMoviePage from "./pages/fantasyMoviePage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,6 +37,7 @@ const App = () => {
           <Routes>
             <Route path="/reviews/:id" element={<MovieReviewPage />} />
             <Route path="/cast/:id" element={<CastBioPage/>} />
+            <Route path="/movies/fantasyMovie" element={<FantasyMoviePage/>} />
             <Route path="/reviews/form" element={<AddMovieReviewPage/>} />
             <Route path="/movies/favourites" element={<FavouriteMoviesPage />} />
             <Route path="/movies/mustWatch" element={<MustWatchMoviesPage />} />
@@ -54,7 +56,7 @@ const App = () => {
   );
 };
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,

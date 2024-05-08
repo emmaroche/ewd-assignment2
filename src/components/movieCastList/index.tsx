@@ -1,8 +1,8 @@
-import React from 'react';
-import { Card, CardContent, CardMedia, Typography, Box } from '@mui/material';
-import img from '../../images/film-poster-placeholder.png';
-import { Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Card, CardContent, CardMedia, Typography, Box } from "@mui/material";
+import img from "../../images/film-poster-placeholder.png";
+import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const styles = {
     card: { maxWidth: 345 },

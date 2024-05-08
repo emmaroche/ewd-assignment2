@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getMovie } from '../api/tmdb-api'
-import { MovieT } from '../types/interfaces'
+import { getMovie } from "../api/tmdb-api"
+import { MovieT } from "../types/interfaces"
 
 const useMovie = (id: string) => {
     const [movie, setMovie] = useState<MovieT>();

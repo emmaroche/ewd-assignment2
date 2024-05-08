@@ -3,23 +3,23 @@ import { useParams } from "react-router-dom";
 import MovieDetails from "../components/movieDetails";
 import { MovieT } from "../types/interfaces";
 import PageTemplate from "../components/templateMoviePage";
-import { getMovie } from '../api/tmdb-api'
+import { getMovie } from "../api/tmdb-api"
 import { useQuery } from "react-query";
-import Spinner from '../components/spinner'
-import { getSimilarMovies } from '../api/tmdb-api';
-import { getMovieCast } from '../api/tmdb-api';
+import Spinner from "../components/spinner"
+import { getSimilarMovies } from "../api/tmdb-api";
+import { getMovieCast } from "../api/tmdb-api";
 
 const buttonStyle = {
-  backgroundColor: 'rgba(25,118,210,255)',
-  color: 'white',
-  padding: '10px 20px',
-  border: 'none',
-  borderRadius: '5px',
-  cursor: 'pointer',
-  fontSize: '1em',
-  marginBottom: '30px',
-  marginTop: '30px',
-  marginRight: '30px',
+  backgroundColor: "rgba(25,118,210,255)",
+  color: "white",
+  padding: "10px 20px",
+  border: "none",
+  borderRadius: "5px",
+  cursor: "pointer",
+  fontSize: "1em",
+  marginBottom: "30px",
+  marginTop: "30px",
+  marginRight: "30px",
 };
 
 const MovieDetailsPage: React.FC = () => {
@@ -62,14 +62,14 @@ const MovieDetailsPage: React.FC = () => {
             <MovieDetails {...movie as MovieT} similarMovies={{ results: paginatedSimilarMovies }} movieCast={{ cast: paginatedCast }}
               castChildren={
                 <>
-                  <button style={{ ...buttonStyle, backgroundColor: atFirstCastPage ? 'grey' : 'rgba(25,118,210,255)', cursor: atFirstCastPage ? 'not-allowed' : 'pointer' }} onClick={() => setCastPage(old => Math.max(old - 1, 1))} disabled={atFirstCastPage}>Previous Cast Members</button>
-                  <button style={{ ...buttonStyle, backgroundColor: noMoreCastMembers ? 'grey' : 'rgba(25,118,210,255)', cursor: noMoreCastMembers ? 'not-allowed' : 'pointer' }} onClick={() => setCastPage(old => old + 1)} disabled={noMoreCastMembers}>More Cast Members</button>
+                  <button style={{ ...buttonStyle, backgroundColor: atFirstCastPage ? "grey" : "rgba(25,118,210,255)", cursor: atFirstCastPage ? "not-allowed" : "pointer" }} onClick={() => setCastPage(old => Math.max(old - 1, 1))} disabled={atFirstCastPage}>Previous Cast Members</button>
+                  <button style={{ ...buttonStyle, backgroundColor: noMoreCastMembers ? "grey" : "rgba(25,118,210,255)", cursor: noMoreCastMembers ? "not-allowed" : "pointer" }} onClick={() => setCastPage(old => old + 1)} disabled={noMoreCastMembers}>More Cast Members</button>
                 </>
               }
               similarMoviesChildren={
                 <>
-                  <button style={{ ...buttonStyle, backgroundColor: atFirstSimilarMoviesPage ? 'grey' : 'rgba(25,118,210,255)', cursor: atFirstSimilarMoviesPage ? 'not-allowed' : 'pointer' }} onClick={() => setSimilarMoviesPage(old => Math.max(old - 1, 1))} disabled={atFirstSimilarMoviesPage}>Previous Similar Movies</button>
-                  <button style={{ ...buttonStyle, backgroundColor: noMoreSimilarMovies ? 'grey' : 'rgba(25,118,210,255)', cursor: noMoreSimilarMovies ? 'not-allowed' : 'pointer' }} onClick={() => setSimilarMoviesPage(old => old + 1)} disabled={noMoreSimilarMovies}>More Similar Movies</button>
+                  <button style={{ ...buttonStyle, backgroundColor: atFirstSimilarMoviesPage ? "grey" : "rgba(25,118,210,255)", cursor: atFirstSimilarMoviesPage ? "not-allowed" : "pointer" }} onClick={() => setSimilarMoviesPage(old => Math.max(old - 1, 1))} disabled={atFirstSimilarMoviesPage}>Previous Similar Movies</button>
+                  <button style={{ ...buttonStyle, backgroundColor: noMoreSimilarMovies ? "grey" : "rgba(25,118,210,255)", cursor: noMoreSimilarMovies ? "not-allowed" : "pointer" }} onClick={() => setSimilarMoviesPage(old => old + 1)} disabled={noMoreSimilarMovies}>More Similar Movies</button>
                 </>
               }
             />

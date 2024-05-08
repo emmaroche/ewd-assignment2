@@ -7,16 +7,16 @@ import Typography from "@mui/material/Typography";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import TextField, { } from "@mui/material/TextField";
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import SortIcon from '@mui/icons-material/Sort';
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import SortIcon from "@mui/icons-material/Sort";
 import { getGenres } from "../../api/tmdb-api";
 import { useQuery } from "react-query";
-import Spinner from '../spinner'
+import Spinner from "../spinner"
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import { LocalizationProvider } from '@mui/x-date-pickers'
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { DatePicker } from "@mui/x-date-pickers/DatePicker"
+import { LocalizationProvider } from "@mui/x-date-pickers"
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
 
 // Reference to help with date filtering: https://mui.com/x/react-date-pickers/getting-started/ & https://mui.com/x/react-date-pickers/date-picker/ & https://mui.com/x/react-date-pickers/base-concepts/
 
@@ -28,7 +28,7 @@ const styles = {
 
   formControl: {
     margin: 1,
-    width: 'calc(100% - 8px)',
+    width: "calc(100% - 8px)",
     backgroundColor: "rgb(255, 255, 255)",
   },
   clearButton: {
@@ -78,7 +78,7 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = (props) => {
   };
 
   const handleDateChange = (date: Date | null) => {
-    const dateString = date ? date.toISOString().split('T')[0] : '';
+    const dateString = date ? date.toISOString().split("T")[0] : "";
     props.onUserInput("date", dateString);
   }
 
@@ -117,7 +117,7 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = (props) => {
             <DatePicker
               sx={styles.formControl}
               label="Release Year"
-              views={['year']}
+              views={["year"]}
               format="yyyy"
               value={dateFilter as any}
               onChange={handleDateChange}

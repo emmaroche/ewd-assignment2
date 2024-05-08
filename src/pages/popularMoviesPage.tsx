@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import PageTemplate from '../components/templateMovieListPage';
+import PageTemplate from "../components/templateMovieListPage";
 import { ListedMovie, MovieT } from "../types/interfaces";
 import { useQuery } from "react-query";
 import { getPopularMovies } from "../api/tmdb-api";
@@ -10,18 +10,19 @@ import MovieFilterUI, {
   dateFilter
 } from "../components/movieFilterUI";
 import Spinner from "../components/spinner";
-import AddToMustWatchIcon from '../components/cardIcons/addToMustWatch';
-const buttonStyle = {
-  backgroundColor: 'rgba(25,118,210,255)',
-  color: 'white',
-  padding: '10px 20px',
-  border: 'none',
-  borderRadius: '5px',
-  cursor: 'pointer',
-  fontSize: '1em',
-  marginBottom: '30px',
-  marginTop: '30px',
-};
+import AddToMustWatchIcon from "../components/cardIcons/addToMustWatch";
+
+const buttonStyle = (isDisabled: boolean) => ({
+  backgroundColor: isDisabled ? "grey" : "rgba(25,118,210,255)",
+  color: "white",
+  padding: "10px 20px",
+  border: "none",
+  borderRadius: "5px",
+  cursor: "pointer",
+  fontSize: "1em",
+  marginBottom: "30px",
+  marginTop: "30px",
+});
 const titleFiltering = {
   name: "title",
   value: "",
@@ -91,11 +92,11 @@ const PopularPage: React.FC = () => {
 
   // Call the sorting function and update displayedMovies
   displayedMovies = sortMovies(displayedMovies, sortFilter);
-    
+
   return (
     <>
       <PageTemplate
-        title='Discover Popular Movies'
+        title="Discover Popular Movies"
         movies={displayedMovies}
         action={(movie: ListedMovie) => (
           <AddToMustWatchIcon  {...movie} />
@@ -106,24 +107,24 @@ const PopularPage: React.FC = () => {
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
         dateFilter={filterValues[2].value}
-        sortFilter={sortFilter} 
+        sortFilter={sortFilter}
       />
-      
+
       <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: '10px',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: "10px",
       }}>
         <button
-          style={buttonStyle}
+          style={buttonStyle(page === 1)}
           onClick={() => setPage((old) => Math.max(old - 1, 0))}
           disabled={page === 1}
         >
           Previous Page
         </button>
         <button
-          style={buttonStyle}
+          style={buttonStyle(isLoading || !data?.hasMore)}
           onClick={() => {
             if (!isLoading && data?.hasMore) {
               setPage((old) => old + 1)
@@ -134,7 +135,7 @@ const PopularPage: React.FC = () => {
           Next Page
         </button>
       </div>
-      {isLoading ? <span> Loading...</span> : null}{' '}
+      {isLoading ? <span> Loading...</span> : null}{" "}
     </>
   );
 };

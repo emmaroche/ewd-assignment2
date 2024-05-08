@@ -10,12 +10,12 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import Grid from "@mui/material/Grid";
-import img from '../../images/film-poster-placeholder.png';
+import img from "../../images/film-poster-placeholder.png";
 import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import { MoviesContext } from "../../contexts/moviesContext";
 import { ListedMovie } from "../../types/interfaces";
-import { Box } from '@mui/material';
+import { Box } from "@mui/material";
 
 const styles = {
   card: { maxWidth: 345 },
@@ -38,7 +38,7 @@ const MovieCard: React.FC<MovieListProps> = (props) => {
     movie.favourite = true;
 
   return (
-<Box component={Link} to={`/movies/${props.movie.id}`} sx={{ textDecoration: 'none' }}>
+<Box component={Link} to={`/movies/${props.movie.id}`} sx={{ textDecoration: "none" }}>
     <Card sx={styles.card}>
       <CardHeader
         avatar={

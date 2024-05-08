@@ -15,13 +15,13 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 const styles = {
   title: {
     flexGrow: 1,
-    cursor: 'pointer'
+    cursor: "pointer"
   },
   title2: {
     flexGrow: 1,
   },
   appbar: {
-    // background: 'none',
+    // background: "none",
   },
   // offset: theme.mixins.toolbar,
 };
@@ -40,11 +40,12 @@ const SiteHeader: React.FC = () => {
 
   const menuOptions = [
     { label: "Home", path: "/" },
-    { label: "Favourites", path: "/movies/favourites" },
-    { label: "Must Watch", path: "/movies/mustWatch" },
+    { label: "Now Playing", path: "/movies/nowPlaying" },
     { label: "Upcoming Movies", path: "/movies/upcoming" },
     { label: "Popular Movies", path: "/movies/popular" },
-    { label: "Now Playing", path: "/movies/nowPlaying" },
+    { label: "Favourites", path: "/movies/favourites" },
+    { label: "Must Watch", path: "/movies/mustWatch" },
+    { label: "Fantasy Movie", path: "/movies/fantasyMovie" },
   ];
 
   const handleMenuSelect = (pageURL: string) => {

@@ -10,19 +10,20 @@ import MovieFilterUI, {
 import { DiscoverMovies, ListedMovie } from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
-import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
+import AddToFavouritesIcon from "../components/cardIcons/addToFavourites"
 
-const buttonStyle = {
-  backgroundColor: 'rgba(25,118,210,255)',
-  color: 'white',
-  padding: '10px 20px',
-  border: 'none',
-  borderRadius: '5px',
-  cursor: 'pointer',
-  fontSize: '1em',
-  marginBottom: '30px',
-  marginTop: '30px',
-};
+const buttonStyle = (isDisabled: boolean) => ({
+  backgroundColor: isDisabled ? "grey" : "rgba(25,118,210,255)",
+  color: "white",
+  padding: "10px 20px",
+  border: "none",
+  borderRadius: "5px",
+  cursor: "pointer",
+  fontSize: "1em",
+  marginBottom: "30px",
+  marginTop: "30px",
+});
+
 const titleFiltering = {
   name: "title",
   value: "",
@@ -93,14 +94,11 @@ const HomePage: React.FC = () => {
     setFilterValues(updatedFilterSet);
   };
 
-  
-
   const movies = data ? data.results : [];
   let displayedMovies = filterFunction(movies);
 
   // Call the sorting function and update displayedMovies
   displayedMovies = sortMovies(displayedMovies, sortFilter);
-
 
   // Redundant, but necessary to avoid app crashing.
   const favourites = movies.filter(m => m.favourite)
@@ -122,35 +120,34 @@ const HomePage: React.FC = () => {
         dateFilter={filterValues[2].value}
         sortFilter={sortFilter}
       />
-
       <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: '10px',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: "10px",
       }}>
         <button
-          style={buttonStyle}
+          style={buttonStyle(page === 1)}
           onClick={() => setPage((old) => Math.max(old - 1, 0))}
           disabled={page === 1}
-   
+
         >
           Previous Page
         </button>
         <button
-          style={buttonStyle}
+          style={buttonStyle(isLoading || !data?.hasMore)}
           onClick={() => {
             if (!isLoading && data && data.hasMore) {
               setPage((old) => old + 1)
             }
           }}
           disabled={isLoading || !data?.hasMore}
-       
+
         >
           Next Page
         </button>
       </div>
-      {isLoading ? <span> Loading...</span> : null}{' '}
+      {isLoading ? <span> Loading...</span> : null}{" "}
     </>
   );
 };

@@ -1,6 +1,6 @@
-import React from 'react';
-import { Card, CardContent, CardMedia, Typography } from '@mui/material';
-import img from '../../images/film-poster-placeholder.png';
+import React from "react";
+import { Card, CardContent, CardMedia, Typography } from "@mui/material";
+import img from "../../images/film-poster-placeholder.png";
 
 
 const styles = {

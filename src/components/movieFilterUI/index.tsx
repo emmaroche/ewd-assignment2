@@ -3,7 +3,7 @@ import FilterCard from "../filterMoviesCard";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import { ListedMovie } from "../../types/interfaces";
-import { parseISO, getYear } from 'date-fns';
+import { parseISO, getYear } from "date-fns";
 
 export const titleFilter = function (movie: ListedMovie, value: string) {
   return movie.title.toLowerCase().search(value.toLowerCase()) !== -1;
