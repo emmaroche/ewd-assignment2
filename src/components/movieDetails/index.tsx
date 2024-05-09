@@ -103,7 +103,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = (props) => {
             <Grid container spacing={2}>
                 {movieCast?.cast?.map((cast: any) => (
                     <Grid item xs={12} sm={6} md={4} lg={3} key={cast.cast_id}>
-                        <MovieCast cast={cast}  />
+                        <MovieCast cast={cast} />
                     </Grid>
                 ))}
             </Grid>
