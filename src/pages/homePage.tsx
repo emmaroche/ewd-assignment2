@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import { getMovies } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
@@ -11,6 +11,7 @@ import { DiscoverMovies, ListedMovie } from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import AddToFavouritesIcon from "../components/cardIcons/addToFavourites"
+import { getTodo, getToken } from "../api/custom-api";
 
 const buttonStyle = (isDisabled: boolean) => ({
   backgroundColor: isDisabled ? "grey" : "rgba(25,118,210,255)",
@@ -61,6 +62,22 @@ const HomePage: React.FC = () => {
     [titleFiltering, genreFiltering, dateFiltering]
   );
   const [sortFilter, setSortFilter] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    getTodo().then((res: any) => {
+      console.log("Response from App Backend:", res);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (username && password) {
+      getToken(username, password).then((res: any) => {
+        console.log("Response from Auth Backend:", res);
+      });
+    }
+  }, [username, password]);
 
   if (isLoading) {
     return <Spinner />;

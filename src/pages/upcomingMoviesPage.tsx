@@ -38,6 +38,7 @@ const dateFiltering = {
   value: new Date().toISOString(),
   condition: dateFilter,
 };
+
 // Sorts by vote count
 function sortMovies(displayedMovies: any[], sortFilter: string) {
   if (sortFilter === "asc") {
@@ -87,8 +88,6 @@ const UpcomingPage: React.FC = () => {
 
     setFilterValues(updatedFilterSet);
   };
-
-
   const movies = data ? data.results : [];
   let displayedMovies = filterFunction(movies);
 
