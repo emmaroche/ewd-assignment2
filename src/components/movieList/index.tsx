@@ -11,8 +11,8 @@ interface MovieListProps {
 const MovieList: React.FC<MovieListProps> = (props) => {
   const movies=props.movies;
   let movieCards = movies.map((m) => (
-    <Grid key={m.id} item xs={12} sm={6} md={4} lg={3} xl={2}>
-      <Movie key={m.id} movie={m} action={props.action}/>
+    <Grid key={m.id} item xs={6} sm={4} md={3} lg={3} xl={3}> 
+      <Movie key={m.id} movie={m}  action={props.action}/>
     </Grid>
   ));
   return movieCards;

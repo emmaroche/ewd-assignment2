@@ -6,7 +6,7 @@ import ImageListItem from "@mui/material/ImageListItem";
 import { getMovieImages } from "../../api/tmdb-api";
 import { MovieImage, MovieT } from "../../types/interfaces";
 import { useQuery } from "react-query";
-import Spinner from "../spinner";
+import Spinner from '../spinner';
 
 const styles = {
     gridListRoot: {
@@ -16,7 +16,7 @@ const styles = {
     },
     gridListTile: {
         width: 450,
-        height: "100vh",
+        height: '100vh',
     },
 };
 
@@ -59,7 +59,7 @@ const TemplateMoviePage: React.FC<TemplateMoviePageProps> = (props) => {
                                 >
                                     <img
                                         src={`https://image.tmdb.org/t/p/w500/${image.file_path}`}
-                                        alt={"Image alternative"}
+                                        alt={'Image alternative'}
                                     />
                                 </ImageListItem>
                             ))}

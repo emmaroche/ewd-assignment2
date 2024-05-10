@@ -19,12 +19,18 @@ import { ListedMovie } from "../../types/interfaces";
 import { Box } from "@mui/material";
 
 const styles = {
-  card: { maxWidth: 345 },
+  card: {
+    maxWidth: 300,
+    marginTop: 5,
+    marginLeft: 7,
+    marginRight: 7
+  },
   media: { height: 500 },
   avatar: {
     backgroundColor: "rgb(255, 0, 0)",
   },
 };
+
 
 interface MovieListProps {
   movie: ListedMovie,
@@ -32,16 +38,18 @@ interface MovieListProps {
 }
 
 const MovieCard: React.FC<MovieListProps> = (props) => {
-  const movie = { ...props.movie, favourite: false, mustWatch: false }; 
-  const { favourites, mustWatchList } = useContext(MoviesContext); 
+  const movie = { ...props.movie, favourite: false, mustWatch: false };
+  const { favourites, mustWatchList } = useContext(MoviesContext);
 
   if (favourites.find((id) => id === movie.id))
     movie.favourite = true;
-  if (mustWatchList.find((id) => id === movie.id)) 
+  if (mustWatchList.find((id) => id === movie.id))
     movie.mustWatch = true;
 
   return (
-    <Box component={Link} to={`/movies/${props.movie.id}`} sx={{ textDecoration: "none" }}>
+    <Box component={Link} to={`/movies/${props.movie.id}`} sx={{
+      textDecoration: "none",
+    }}>
       <Card sx={styles.card}>
         <CardHeader
           avatar={
@@ -73,17 +81,17 @@ const MovieCard: React.FC<MovieListProps> = (props) => {
           }
         />
         <CardContent>
-          <Grid container>
-            <Grid item xs={6}>
-              <Typography variant="h6" component="p">
-                <CalendarIcon fontSize="small" />
+          <Grid container spacing={2} alignItems="center" >
+            <Grid item xs={6} container alignItems="center">
+              <CalendarIcon fontSize="small" color= "primary" />
+              <Typography variant="h6" component="p" style={{ marginLeft: "2px" }}>
                 {props.movie.release_date}
               </Typography>
             </Grid>
-            <Grid item xs={6}>
-              <Typography variant="h6" component="p">
-                <StarRateIcon fontSize="small" />
-                {"  "} {props.movie.vote_average}{" "}
+            <Grid item xs={6} container alignItems="center">
+              <StarRateIcon  color= "primary" fontSize="small" />
+              <Typography variant="h6" component="p" style={{ marginLeft: "3px" }}>
+                {props.movie.vote_average}
               </Typography>
             </Grid>
           </Grid>
@@ -95,7 +103,6 @@ const MovieCard: React.FC<MovieListProps> = (props) => {
           <Button variant="outlined" size="medium" color="primary">
             More Info
           </Button>
-
         </CardActions>
       </Card>
     </Box>

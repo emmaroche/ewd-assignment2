@@ -34,7 +34,7 @@ const styles = {
   clearButton: {
     marginTop: 16,
     marginLeft: 8,
-    backgroundColor: "rgb(0, 0, 0)",
+    backgroundColor: "rgba(25,118,210,255)",
     color: "white",
   },
 
@@ -101,8 +101,8 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = (props) => {
       <>
         <Card sx={styles.root} variant="outlined">
           <CardContent>
-            <Typography variant="h5" component="h1">
-              <FilterAltIcon fontSize="large" />
+            <Typography variant="h5" component="h1" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <FilterAltIcon color="primary" fontSize="large" />
               Filter the movies
             </Typography>
             <TextField
@@ -144,8 +144,8 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = (props) => {
         </Card>
         <Card sx={styles.root} variant="outlined">
           <CardContent>
-            <Typography variant="h5" component="h1">
-              <SortIcon fontSize="large" />
+            <Typography variant="h5" component="h1" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <SortIcon color="primary" fontSize="large" />
               Sort the movies
             </Typography>
             <FormControl sx={styles.formControl}>
