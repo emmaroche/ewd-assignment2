@@ -29,9 +29,9 @@ const styles = {
     },
     fab: {
         position: "fixed",
-        top: 70,
+        top: 100,
         right: 20,
-        zIndex: 10000,
+        zIndex: 999,
     },
 };
 
@@ -90,8 +90,9 @@ const MovieDetails: React.FC<MovieDetailsProps> = (props) => {
                 onClick={() => setDrawerOpen(true)}
                 sx={styles.fab}
             >
+                 Reviews
                 <NavigationIcon />
-                Reviews
+               
             </Fab>
             <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
                 <MovieReviews {...movie} />

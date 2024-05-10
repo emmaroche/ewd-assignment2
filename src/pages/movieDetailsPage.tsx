@@ -58,7 +58,7 @@ const MovieDetailsPage: React.FC = () => {
     <>
       {movie ? (
         <>
-          <PageTemplate movie={movie as MovieT}>
+          <PageTemplate movie={movie as MovieT} >
             <MovieDetails {...movie as MovieT} similarMovies={{ results: paginatedSimilarMovies }} movieCast={{ cast: paginatedCast }}
               castChildren={
                 <>

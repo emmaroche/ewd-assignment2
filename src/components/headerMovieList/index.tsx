@@ -12,7 +12,8 @@ const styles = {
         justifyContent: "space-around",
         alignItems: "center",
         flexWrap: "wrap",
-        marginBottom: 1.5,
+        marginTop: 3,
+        marginBottom: 3,
     },
 };
 

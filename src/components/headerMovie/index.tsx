@@ -17,6 +17,8 @@ const styles = {
     alignItems: "center",
     flexWrap: "wrap",
     padding: 1.5,
+    marginTop: 3,
+    marginBottom: 3,
   },
 };
 
