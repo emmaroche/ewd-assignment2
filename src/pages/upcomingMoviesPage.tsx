@@ -11,6 +11,7 @@ import MovieFilterUI, {
 } from "../components/movieFilterUI";
 import Spinner from "../components/spinner";
 import AddToMustWatchIcon from "../components/cardIcons/addToMustWatch";
+import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
 
 const buttonStyle = (isDisabled: boolean) => ({
   backgroundColor: isDisabled ? "grey" : "rgba(25,118,210,255)",
@@ -103,9 +104,10 @@ const UpcomingPage: React.FC = () => {
       <PageTemplate
         title="Discover Upcoming Movies"
         movies={displayedMovies}
-        action={(movie: ListedMovie) => (
-          <AddToMustWatchIcon  {...movie} />
-        )}
+        action={(movie: ListedMovie) => [
+          <AddToFavouritesIcon {...movie} />,
+          <AddToMustWatchIcon {...movie} />
+        ]}
       />
       <MovieFilterUI
         onFilterValuesChange={changeFilterValues}

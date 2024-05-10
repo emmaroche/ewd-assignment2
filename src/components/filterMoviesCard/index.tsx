@@ -18,7 +18,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker"
 import { LocalizationProvider } from "@mui/x-date-pickers"
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
 
-// Reference to help with date filtering: https://mui.com/x/react-date-pickers/getting-started/ & https://mui.com/x/react-date-pickers/date-picker/ & https://mui.com/x/react-date-pickers/base-concepts/
+// References to help with date filtering: https://mui.com/x/react-date-pickers/getting-started/ & https://mui.com/x/react-date-pickers/date-picker/ & https://mui.com/x/react-date-pickers/base-concepts/
 
 const styles = {
   root: {
