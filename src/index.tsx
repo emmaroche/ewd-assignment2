@@ -17,6 +17,7 @@ import PopularPage from "./pages/popularMoviesPage";
 import CastBioPage from './pages/castInfoPage';
 import FantasyMoviePage from './pages/fantasyMoviePage';
 import SignIn from "./pages/signInPage";
+import ReviewsPage from "./pages/reviewsPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -45,15 +46,13 @@ const App = () => {
             <Route path="/reviews/form" element={isAuthenticated ? <AddMovieReviewPage /> : <Navigate to="/signin" replace state={{ from: '/reviews/form' }} />} />
             <Route path="/movies/favourites" element={isAuthenticated ? <FavouriteMoviesPage /> : <Navigate to="/signin" replace state={{ from: '/movies/favourites' }} />} />
             <Route path="/movies/mustWatch" element={isAuthenticated ? <MustWatchMoviesPage /> : <Navigate to="/signin" replace state={{ from: '/movies/mustWatch' }} />} />
-            {/* <Route path="/movies/:id" element={ <MoviePage />} /> */}
             <Route path="/movies/:id" element={isAuthenticated ? <MoviePage /> : <Navigate to="/signin" replace state={{ from: '/movies/:id' }} />} />
             <Route path="/movies/upcoming" element={isAuthenticated ? <UpcomingMovie /> : <Navigate to="/signin" replace state={{ from: '/movies/upcoming' }} />} />
             <Route path="/movies/popular" element={isAuthenticated ? <PopularPage /> : <Navigate to="/signin" replace state={{ from: '/movies/popular' }} />} />
             <Route path="/movies/nowPlaying" element={isAuthenticated ? <NowPlayingMoviePage /> : <Navigate to="/signin" replace state={{ from: '/movies/nowPlaying' }} />} />
             <Route path="/signin" element={<SignIn onSignIn={() => setIsAuthenticated(true)} />} />
-            {/* <Route path="/movies/favourites" element={<FavouriteMoviesPage />} />
-             <Route path="/movies/mustWatch" element={<MustWatchMoviesPage />} /> */}
             <Route path="/" element={<HomePage />} />
+            <Route path="/r" element={<ReviewsPage />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </MoviesContextProvider>

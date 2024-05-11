@@ -11,7 +11,7 @@ import { DiscoverMovies, ListedMovie } from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import AddToFavouritesIcon from "../components/cardIcons/addToFavourites"
-import { getTodo, getToken } from "../api/custom-api";
+import { getReviews, getToken } from "../api/custom-api";
 import AddToMustWatchIcon from "../components/cardIcons/addToMustWatch";
 
 const buttonStyle = (isDisabled: boolean) => ({
@@ -66,10 +66,19 @@ const HomePage: React.FC = () => {
   const [password] = useState('');
 
   useEffect(() => {
-    getTodo().then((res: any) => {
-      console.log("Response from App Backend:", res);
+    getReviews('John', '1234')
+    .then((reviews) => {
+        console.log(reviews);
     });
   }, []);
+
+
+  // useEffect(() => {
+  //   getTodo().then((res: any) => {
+  //     console.log("Response from App Backend:", res);
+  //   });
+  // }, []);
+
 
   useEffect(() => {
     if (username && password) {
