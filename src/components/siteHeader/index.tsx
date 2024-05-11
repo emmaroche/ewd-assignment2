@@ -60,7 +60,7 @@ const SiteHeader: React.FC = () => {
       <AppBar sx={styles.appbar} position="fixed" elevation={0} color="primary">
         <Toolbar>
           <Typography variant="h4" sx={styles.title} onClick={handleClickHome}>
-            Movies App
+            Movies Fan App
           </Typography>
           <Typography variant="h6" sx={styles.title2}>
             All you ever wanted to know about Movies!

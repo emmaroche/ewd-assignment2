@@ -39,7 +39,7 @@ const dateFiltering = {
   value: new Date().toISOString(),
   condition: dateFilter,
 };
-function sortMovies(displayedMovies: any[], sortFilter: string) {
+export const sortMovies = (displayedMovies: any[], sortFilter: string) =>  {
   if (sortFilter === "asc") {
     displayedMovies.sort((a, b) => (a.vote_average || 0) - (b.vote_average || 0));
   } else if (sortFilter === "desc") {

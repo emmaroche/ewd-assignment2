@@ -78,6 +78,7 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = (props) => {
   };
 
   const handleDateChange = (date: Date | null) => {
+    // Reference to remove time and only show date: https://stackoverflow.com/questions/47066555/remove-time-after-converting-date-toisostring
     const dateString = date ? date.toISOString().split("T")[0] : "";
     props.onUserInput("date", dateString);
   }
@@ -114,6 +115,7 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = (props) => {
               variant="filled"
               onChange={handleTextChange}
             />
+            {/* Reference to only show years: https://stackoverflow.com/questions/50556433/material-ui-datepicker-enable-only-year */}
             <DatePicker
               sx={styles.formControl}
               label="Release Year"

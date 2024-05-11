@@ -35,7 +35,7 @@ export const genreFiltering = {
   },
 };
 
-function sortMovies(displayedMovies: any[], sortFilter: string) {
+export const sortMovies = (displayedMovies: any[], sortFilter: string) =>  {
   if (sortFilter === "asc") {
     displayedMovies.sort((a, b) => (a.vote_average || 0) - (b.vote_average || 0));
   } else if (sortFilter === "desc") {
@@ -43,7 +43,6 @@ function sortMovies(displayedMovies: any[], sortFilter: string) {
   }
   return displayedMovies;
 }
-
 
 const FavouriteMoviesPage: React.FC = () => {
   const { favourites: movieIds } = useContext(MoviesContext);

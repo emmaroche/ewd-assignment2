@@ -11,12 +11,12 @@ Below is a list of the new features I added and modifications to existing featur
 
 + **Home page** - The first page that displays different movies for a user to look through and discover.
 
-+ **Now Playing movies page** -  Displays the movies that are out right now.
++ **Now Playing movies page** - Displays the movies that are out right now.
 + **Upcoming movies page** - Displays the movies that are coming out soon.
 + **Popular movies page** - Displays the movies that a lot of people are watching and liking currently.
 + **Favourites page** - A page where users can keep track of their favourite movies.
 + **Must watch page** - A page where users can keep track of the movies they want to watch.
-+ **Fantasy movie page** - A page where users can create their own 'Dream Movie' by inputing details such as title, overview, genres, release date, runtime, production company(s), ideal cast members, and even upload a custom movie poster.
++ **Fantasy movie page** - A page where users can create their own 'Dream Movie' by inputting details such as title, overview, genres, release date, runtime, production company(s), ideal cast members, and even upload a custom movie poster.
 + **Movie details page** - A page where users can explore a movie's details including its description, genres, runtime, and more. Additionally, users can view the cast memebers and discover similar movies to watch.
 + **Cast biography page** - A page where users can read about the individual cast member from a movie.
 + **Filter functionality** - Search for movies by title, year, and/or genre.
@@ -99,4 +99,47 @@ Routes supported by the app:
 
 ### Independent learning 
 
+During the development of the project, I did some independent learning to incorporate aspects not covered in the lectures or labs that I wanted to add. Below are the details of what features/functionalities I researched independently, along with the relevant source code filenames and references to online resources that helped me:
 
+1. **Private Routes Implementation:**
+   - Source Code Filenames: `index.tsx` and `signInPage.tsx`
+   - Description: Used Stack Overflow ([Link](https://stackoverflow.com/questions/72163183/how-can-i-redirect-to-previous-page-after-login-in-react-router)) to help me implement private routes that redirect users back to the original page/state after signing in.
+   - Techniques used:
+     - Used React Router's `useNavigate` and `useLocation` hooks to access navigation functionalities and location state.
+     - Implemented redirection logic based on the location state to redirect users to the last attempted page or the home page after signing in.
+    
+2. **Image Upload Feature:**
+   - Source Code Filename: `fantasyMovieForm/index.tsx`
+   - Description: Implemented image upload functionality on the fantasy movie page with guidance from Stack Overflow ([Link](https://stackoverflow.com/questions/43692479/how-to-upload-an-image-in-react-js)).
+   - Techniques used:
+     - Used the `URL.createObjectURL()` method to create a local URL for the uploaded image file, allowing for previewing the image before uploading it.
+     - Implemented an event handler function `handleImageUpload` to handle the file selection and update the component state with the local URL of the uploaded image.
+       
+3. **Deleting Fantasy Movies:**
+   - Source Code Filename: `fantasyMovieForm/index.tsx`
+   - Description: Used Stack Overflow ([Link](https://stackoverflow.com/questions/36326612/how-to-delete-an-item-from-state-array)) to help implement the functionality for deleting movies from the fantasy movie page.
+   - Techniques used:
+     - Implemented an event handler function `handleDelete` that removes the selected movie from the state array using the `filter` method, based on the index of the movie item to be deleted.
+    
+4. **Filtering Movies by Date:**
+   - Source Code Filenames: `filterMoviesCard/index.tsx` and `movieFilterUI/index.tsx`
+   - Description: Implemented date filtering functionality with the help of Material-UI documentation ([Link 1](https://mui.com/x/react-date-pickers/getting-started/), [Link 2](https://mui.com/x/react-date-pickers/date-picker/), [Link 3](https://mui.com/x/react-date-pickers/base-concepts/)) and Stack Overflow ([Link](https://stackoverflow.com/questions/69265989/format-date-with-date-fns), [Link 2](https://stackoverflow.com/questions/50556433/material-ui-datepicker-enable-only-year), [Link 3](https://stackoverflow.com/questions/47066555/remove-time-after-converting-date-toisostring)).
+   - Techniques used:
+     - Implemented a function to handle changes in the selected date, converting it to a string format without time information by using the toISOString method and splitting the string at the "T" character to isolate the date part only.
+     - Created a custom `dateFilter` function that takes a movie object and a date value as input.
+     - Utilised date parsing functions from the `date-fns` library (`parseISO`, `getYear`) to extract the release year from the movie's release date and the filter year from the selected date.
+     - Added code that compares the release year of a movie to the selected filter year.
+       
+5. **Sorting Movies by Vote Count:**
+   - Source Code Filename: `homePage.tsx`
+   - Description: Implemented sorting functionality for movies by vote count with help from a blog post ([Link](https://blog.devgenius.io/react-search-filter-sort-by-and-sort-order-66e4835b0537)).
+   - Techniques used:
+     - Created a `sortMovies` function that takes an array of displayed movies and a sort filter as parameters.
+     - Utilised the `sort` method to sort the movies based on their vote average (`vote_average`).
+     - Implemented sorting logic for both ascending and descending order based on the selected sort filter.
+    
+6. **Pagination Implementation:**
+   - Source Code Filename: `homePage.tsx` and `movieDetailsPage.tsx`
+   - Description: Implemented pagination for main movie pages and movie details page pagination for the cast and similar movie list using guidance from the TanStack Query documentation ([Link](https://tanstack.com/query/latest/docs/framework/react/guides/paginated-queries?from=reactQueryV3)) and Stack Overflow ([Link](https://stackoverflow.com/questions/42761068/paginate-javascript-array)).
+
+I also inserted comments above the relevant code, providing links to the online resources that I used to help guide me during the development of this assignment.

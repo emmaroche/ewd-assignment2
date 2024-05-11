@@ -42,9 +42,8 @@ const dateFiltering = {
   condition: dateFilter,
 };
 
-// Sorts by vote count
 // Reference: https://blog.devgenius.io/react-search-filter-sort-by-and-sort-order-66e4835b0537 
-function sortMovies(displayedMovies: any[], sortFilter: string) {
+export const sortMovies = (displayedMovies: any[], sortFilter: string) =>  {
   if (sortFilter === "asc") {
     displayedMovies.sort((a, b) => (a.vote_average || 0) - (b.vote_average || 0));
   } else if (sortFilter === "desc") {
@@ -63,8 +62,8 @@ const HomePage: React.FC = () => {
     [titleFiltering, genreFiltering, dateFiltering]
   );
   const [sortFilter, setSortFilter] = useState("");
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username] = useState('');
+  const [password] = useState('');
 
   useEffect(() => {
     getTodo().then((res: any) => {

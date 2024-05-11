@@ -31,7 +31,7 @@ const queryClient = new QueryClient({
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false); // isAuthenticated state
 
-   // Reference to replace state once sucessfully logged in: https://stackoverflow.com/questions/71396596/equivalent-to-redirect-to-login-using-navigate-in-react-router-dom-v6
+   // Reference to replace state once sucessfully logged in: https://stackoverflow.com/questions/72163183/how-can-i-redirect-to-previous-page-after-login-in-react-router
 
   return (
     <QueryClientProvider client={queryClient}>
