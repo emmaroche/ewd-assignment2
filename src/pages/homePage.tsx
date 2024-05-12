@@ -66,19 +66,11 @@ const HomePage: React.FC = () => {
   const [password] = useState('');
 
   useEffect(() => {
-    getReviews('John', '1234')
+    getReviews('Abigail', '1234')
     .then((reviews) => {
         console.log(reviews);
     });
   }, []);
-
-
-  // useEffect(() => {
-  //   getTodo().then((res: any) => {
-  //     console.log("Response from App Backend:", res);
-  //   });
-  // }, []);
-
 
   useEffect(() => {
     if (username && password) {

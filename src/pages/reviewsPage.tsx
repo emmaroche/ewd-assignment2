@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { getReviews2 } from '../api/custom-api';
+import Header from '../components/headerMovieList';
+import { Card, CardContent, Typography, Box, Rating } from '@mui/material';
 
 type MovieReview = {
   movieId: number;
-  reviewerName: string;
+  movieName: string;
   reviewDate: string;
   content: string;
   rating: 1 | 2 | 3 | 4 | 5;
@@ -18,19 +20,32 @@ const ReviewsPage: React.FC = () => {
         if (Array.isArray(fetchedReviews.data)) {
           setReviews(fetchedReviews.data);
         } else {
-          console.error('Fetched reviews is not an array:', fetchedReviews);
+          console.error('Fetched reviews error:', fetchedReviews);
         }
       });
   }, []);
+
   return (
     <>
+      <Header title="Your Reviews" />
       {reviews && reviews.map((review, index) => (
-        <div key={index}>
-          <h2>{review.reviewerName}</h2>
-          <p>{review.content}</p>
-          <p>Rating: {review.rating}</p>
-          <p>Review Date: {review.reviewDate}</p>
-        </div>
+        <Box key={index} sx={{ maxWidth: 345, marginBottom: 2 }}>
+          <Card>
+            <CardContent>
+              <Typography variant="h5" component="div">
+                {review.movieName}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {review.content}
+              </Typography>
+              {/* Reference for displaying rating: https://mui.com/material-ui/react-rating/ */}
+              <Rating name="read-only" value={review.rating} readOnly />
+              <Typography variant="caption" display="block" gutterBottom>
+                Review Date: {review.reviewDate}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Box>
       ))}
     </>
   );
