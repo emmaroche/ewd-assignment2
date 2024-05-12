@@ -2,7 +2,7 @@
 
 __Name:__ Emma Roche (20088680)
 
-__Video demonstration:__ 
+__Video demonstration:__ https://youtu.be/fpgShUvbHso 
 
 This repository contains an implementation of the Movie Fans Web Application using the ReactJS library. 
 
@@ -135,14 +135,14 @@ Listed below are the features/functionalities I added through independent learni
 4. **Filtering Movies by Date:**
    - Source Code Filenames: `filterMoviesCard/index.tsx` and `movieFilterUI/index.tsx`
    - Description: Implemented date filtering functionality with the help of Material-UI documentation ([Link 1](https://mui.com/x/react-date-pickers/getting-started/), [Link 2](https://mui.com/x/react-date-pickers/date-picker/), [Link 3](https://mui.com/x/react-date-pickers/base-concepts/)) and Stack Overflow ([Link](https://stackoverflow.com/questions/69265989/format-date-with-date-fns), [Link 2](https://stackoverflow.com/questions/50556433/material-ui-datepicker-enable-only-year), [Link 3](https://stackoverflow.com/questions/47066555/remove-time-after-converting-date-toisostring)).
-   - Techniques used through this resource:
+   - Techniques used through these resources:
      - Implemented a function to handle changes in the selected date, converting it to a string format without time information by using the toISOString method and splitting the string at the "T" character to isolate the date part only.
      - Created a custom `dateFilter` function that takes a movie object and a date value as input.
      - Utilised date parsing functions from the `date-fns` library (`parseISO`, `getYear`) to extract the release year from the movie's release date and the filter year from the selected date.
      - Added code that compares the release year of a movie to the selected filter year.
        
 5. **Sorting Movies by Vote Count:**
-   - Source Code Filename: `homePage.tsx`
+   - Source Code Filenames: `homePage.tsx`, `nowPlayingMoviesPage.tsx`, `mustWatchPage.tsx`, `favoriteMoviesPage.tsx`, `popularMoviespage.tsx` and `upcomingMoviesPage.tsx`
    - Description: Implemented sorting functionality for movies by vote count with help from a blog post ([Link](https://blog.devgenius.io/react-search-filter-sort-by-and-sort-order-66e4835b0537)).
    - Techniques used through this resource:
      - Created a `sortMovies` function that takes an array of displayed movies and a sort filter as parameters.
@@ -150,7 +150,7 @@ Listed below are the features/functionalities I added through independent learni
      - Implemented sorting logic for both ascending and descending order based on the selected sort filter.
     
 6. **Pagination Implementation:**
-   - Source Code Filename: `homePage.tsx` and `movieDetailsPage.tsx`
+   - Source Code Filenames: `homePage.tsx`, `nowPlayingMoviesPage.tsx`, `popularMoviespage.tsx` and `upcomingMoviesPage.tsx` and `movieDetailsPage.tsx`
    - Description: Implemented pagination for main movie pages and movie details page pagination for the cast and similar movie list using guidance from the TanStack Query documentation ([Link](https://tanstack.com/query/latest/docs/framework/react/guides/paginated-queries?from=reactQueryV3)) and Stack Overflow ([Link](https://stackoverflow.com/questions/42761068/paginate-javascript-array)).
 
 I have also placed these links within comments above the associated code.

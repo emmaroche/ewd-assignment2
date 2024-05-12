@@ -49,10 +49,10 @@ const App = () => {
             <Route path="/movies/upcoming" element={isAuthenticated ? <UpcomingMovie /> : <Navigate to="/signin" replace state={{ from: '/movies/upcoming' }} />} />
             <Route path="/movies/popular" element={isAuthenticated ? <PopularPage /> : <Navigate to="/signin" replace state={{ from: '/movies/popular' }} />} />
             <Route path="/movies/nowPlaying" element={isAuthenticated ? <NowPlayingMoviePage /> : <Navigate to="/signin" replace state={{ from: '/movies/nowPlaying' }} />} />
+            <Route path="/r" element={isAuthenticated ? <ReviewsPage /> : <Navigate to="/signin" replace state={{ from: '/r' }} />} />
             <Route path="/signin" element={<SignIn onSignIn={() => setIsAuthenticated(true)} />} />
             <Route path="/" element={<HomePage />} />
             <Route path="/movies/:id" element={<MoviePage />} />
-            <Route path="/r" element={<ReviewsPage />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </MoviesContextProvider>

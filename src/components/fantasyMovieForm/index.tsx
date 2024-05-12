@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card } from "@mui/material";
+import { Card, IconButton, Typography } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 type MovieRecord = {
@@ -102,7 +102,7 @@ const FantasyMovieForm: React.FC = () => {
             [name]: value
         });
     };
-    
+
     const handleCastChange = (index: number, field: keyof typeof movieRecord.cast[0], e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
         setMovieRecord({
@@ -114,10 +114,10 @@ const FantasyMovieForm: React.FC = () => {
     };
 
     const handleAddActor = () => {
-            setMovieRecord(movieRecord => ({
-                ...movieRecord,
-                cast: [...movieRecord.cast, { name: "", role: "", description: "" }]
-            }));
+        setMovieRecord(movieRecord => ({
+            ...movieRecord,
+            cast: [...movieRecord.cast, { name: "", role: "", description: "" }]
+        }));
     };
 
     // Reference: https://stackoverflow.com/questions/43692479/how-to-upload-an-image-in-react-js
@@ -174,22 +174,24 @@ const FantasyMovieForm: React.FC = () => {
             <div style={cardContainerStyle}>
                 {submittedRecords.map((record, index) => (
                     <Card key={index} style={{ ...cardStyle }}>
-                        {record.poster && <img src={record.poster} alt="Movie Poster" style={{ maxWidth: "100%" }} />}
-                        <h2>{record.title}</h2>
-                        <p>{record.overview}</p>
-                        <p>Genres: {record.genres}</p>
-                        <p>Release Date: {record.releaseDate}</p>
-                        <p>Runtime: {record.runtime}</p>
-                        <p>Production Companies: {record.productionCompanies}</p>
-                        <p>Cast:</p>
+                        {record.poster && <img src={record.poster} alt="Movie Poster" style={{ maxWidth: "100%", marginBottom: "10px" }} />}
+                        <Typography variant="h5" component="h2" gutterBottom>{record.title}</Typography>
+                        <Typography variant="body1" component="p" gutterBottom>{record.overview}</Typography>
+                        <Typography variant="body2" component="p" gutterBottom><strong>Genres:</strong> {record.genres}</Typography>
+                        <Typography variant="body2" component="p" gutterBottom><strong>Release Date:</strong> {record.releaseDate}</Typography>
+                        <Typography variant="body2" component="p" gutterBottom><strong>Runtime:</strong> {record.runtime}</Typography>
+                        <Typography variant="body2" component="p" gutterBottom><strong>Production Companies:</strong> {record.productionCompanies}</Typography>
+                        <Typography variant="body2" component="p" gutterBottom><strong>Cast:</strong></Typography>
                         <ul>
                             {record.cast && record.cast.map((actor, idx) => (
                                 <li key={idx}>
-                                    {actor.name} as {actor.role} - {actor.description}
+                                    <Typography variant="body2" component="span"><strong>{actor.name}</strong> as {actor.role} - {actor.description}</Typography>
                                 </li>
                             ))}
                         </ul>
-                        <DeleteIcon onClick={() => handleDelete(index)} color="primary">Delete</DeleteIcon>
+                        <IconButton onClick={() => handleDelete(index)} color="primary" aria-label="delete">
+                            <DeleteIcon />
+                        </IconButton>
                     </Card>
                 ))}
             </div>
